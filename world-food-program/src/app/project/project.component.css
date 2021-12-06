@@ -1,0 +1,31 @@
+/*form {*/
+/*  padding-top: 1rem;*/
+/*}*/
+
+/*label {*/
+/*  display: block;*/
+/*  margin: .5em 0;*/
+/*  font-weight: bold;*/
+/*}*/
+
+/*textarea {*/
+/*  width: 600px;*/
+/*  height: 120px;*/
+/*  border: 3px solid #5ab865;*/
+/*  padding: 5px;*/
+/*  font-family: Tahoma, sans-serif;*/
+/*  background-position: bottom right;*/
+/*  background-repeat: no-repeat;*/
+/*}*/
+
+/*input {*/
+/*  border: 3px solid #5ab865;*/
+/*}*/
+
+/*.cross-validation-error input {*/
+/*  border-left: 5px solid red;*/
+/*}*/
+
+.description {
+  border: 3px solid lightgray;
+}
