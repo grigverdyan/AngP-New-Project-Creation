@@ -3,9 +3,9 @@
   <div class="form-group">
     <label for="project-code">Project Code*</label>
     <input id="project-code" class="form-control" type="text" formControlName="projectCode">
-    <div *ngIf="projectCode?.touched && projectCode?.invalid" class="text-danger">
+    <div *ngIf="projectCode.invalid && (projectCode?.touched || projectCode?.dirty)" class="text-danger">
       <div *ngIf="projectCode?.errors.required">Project Code is required</div>
-      <div *ngIf="projectCode?.errors?.minlength">Minimum 6 character are required</div>
+      <div *ngIf="projectCode.errors?.minlength">Minimum 6 character are required</div>
     </div>
   </div>
 
@@ -26,7 +26,8 @@
   <div class="form-group">
     <label for="impl-status" class="form-label">Implementation Status*</label>
     <select id="impl-status" class="form-select"  formControlName="implStatus" placeholder="Select Status">
-      <option class="dropdown-item" *ngFor="let status of statuses" [ngValue]="status" (change)="changeStatus($event)">{{status}}</option>
+      <option disabled>Select</option>
+      <option class="dropdown-item" *ngFor="let status of statuses" >{{status}}</option>  <!--[ngValue]="status" (change)="changeStatus($event)"-->
     </select>
 
     <div *ngIf="implStatus?.valid">
