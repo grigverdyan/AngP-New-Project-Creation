@@ -1,6 +1,6 @@
 <form [formGroup]="sectorTable">
-   <table>  <!--class="table table-bordered"-->
-    <thead> <!--class="text-nowrap"-->
+   <table class="table table-bordered">  <!--class="table table-bordered"-->
+    <thead class="text-nowrap"> <!--class="text-nowrap"-->
       <th>Sector Name</th>
       <th>%</th>
     </thead>
@@ -17,20 +17,20 @@
             </select>
         </td>
         <td>
-          <input formControlName="%" type="number">
+          <input formControlName="%" type="text">
         </td>
       </ng-container>
     </tbody>
   </table>
 
-  <br><br><br><br><br><br><br><br><br>
-  <div>
-    <select class="form-select">
-      <option class="dropdown-item" *ngFor="let i of goals">{{i}}</option>
-    </select>
+<!--  <br><br><br><br><br><br><br><br><br>-->
+<!--  <div>-->
+<!--    <select class="form-select">-->
+<!--      <option class="dropdown-item" *ngFor="let i of goals">{{i}}</option>-->
+<!--    </select>-->
 
-    <input class="input-group-lg">
-  </div>
+<!--    <input class="input-group-lg">-->
+<!--  </div>-->
 
 
   <button (click)="addRow()">Add</button>
