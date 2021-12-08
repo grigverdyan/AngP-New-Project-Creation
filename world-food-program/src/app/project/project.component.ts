@@ -24,8 +24,8 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectForm= this.fb.group({
-      projectCode: ['', Validators.required, Validators.minLength(6)],
-      projectTitle: ['', Validators.required, Validators.minLength(8)],
+      projectCode: ['', [Validators.required, Validators.minLength(6)]],
+      projectTitle: ['', [Validators.required, Validators.minLength(8)]],
       description: [''],
       details: this.fb.group({
         implStatus: ['', Validators.required],

@@ -1,1 +1,37 @@
-<p>sectors works!</p>
+<form [formGroup]="sectorTable">
+   <table>  <!--class="table table-bordered"-->
+    <thead> <!--class="text-nowrap"-->
+      <th>Sector Name</th>
+      <th>%</th>
+    </thead>
+    <tbody>
+      <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls; let i = index">
+        <td formControlName="sectorName">{{group.get('sectorName').value}}</td>
+        <td formControlName="%">{{group.get('%').value}}</td>
+        <td>
+            <select formControlName="sector">
+              <option value="Agriculture">Agriculture</option>
+              <option value="Administrative">Administrative</option>
+              <option value="Economy">Economy</option>
+              <option value="Health">Health</option>
+            </select>
+        </td>
+        <td>
+          <input formControlName="%" type="number">
+        </td>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <br><br><br><br><br><br><br><br><br>
+  <div>
+    <select class="form-select">
+      <option class="dropdown-item" *ngFor="let i of goals">{{i}}</option>
+    </select>
+
+    <input class="input-group-lg">
+  </div>
+
+
+  <button (click)="addRow()">Add</button>
+</form>
