@@ -1,56 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { SectorService } from "../sectors.service";
+import {Sector} from "../sector";
 
 @Component({
   selector: 'app-sectors',
   templateUrl: './sectors.component.html',
   styleUrls: ['./sectors.component.css']
 })
-export class SectorsComponent implements OnInit {
-  sectorTable!: FormGroup;
-  control!: FormArray;
-  //touchedRows: any;
-  goals = [
-    'Agriculture', 'Administrative', 'Economy', 'Health'
-  ];
 
-  sectorForm = this.fb.group({
-    sectorName: [''],
-    sectorPercent: ['']
+
+/*
+mi qani baner poxel, sectori service em avelacrel, hmi tpuma table-@,
+uxxaki, sxal, u voch demic. add-@ ashxatuma, sectors[]-@ mecanuma, bayc table-@ sxala
+ */
+
+export class SectorsComponent implements OnInit {
+  sectors = this.sectorService.getSectors();
+
+  sectorTable = this.fb.group({
+    tableRows: this.fb.array(this.sectors)
   });
 
-  // touchedRows:any[] = [];
-  // sectorTable = this.fb.group({
-  //   tableRows: this.fb.array([])
-  // });
+  sector: Sector = {
+    sectorName: "", sectorPercent: 0
+  };
 
-  constructor(private fb: FormBuilder) {}
+  sectorForm = new FormGroup({
+    sectorName: new FormControl(this.sector.sectorName),
+    sectorPercent:new FormControl(this.sector.sectorPercent)
+  });
 
-  ngOnInit(): void {
-    // this.touchedRows = [];
+  constructor(
+    private fb: FormBuilder,
+    private sectorService: SectorService
+    ) {}
+
+  initSectorTable(): void {
     this.sectorTable = this.fb.group({
-      tableRows: this.fb.array([])
+      tableRows: this.fb.array(this.sectors)
     });
   }
-
-  // initiateRow(): FormGroup {
-  //   return this.fb.group({
-  //     sectorName: [''],
-  //     percent: ['']
-  //   });
-  // }
-  //
-  // newRow() {
-  //   const control = this.sectorTable.get('tableRows') as FormArray;
-  //   control.push(this.initiateRow());
-  // }
+  ngOnInit(): void {
+    // this.sectorTable = this.fb.group({
+    //   tableRows: this.fb.array(this.sectorService.getSectors())
+    // });
+  }
 
   addRow() {
-    // const sectorForm = this.fb.group({
-    //   sectorName: [''],
-    //   sectorPercent: ['']
-    // });
+    this.sectors.push(this.sector);
     this.tableRows.push(this.sectorForm);
+    this.initSectorTable();
     console.log(this.sectorTable);
   }
 
