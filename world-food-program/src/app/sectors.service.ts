@@ -12,7 +12,16 @@ export class SectorService {
 
   constructor() { }
 
-  getSectors() {
+  getAllSectors() {
     return this.sectors.slice();
   }
+
+  addSector(name: string, percent: number): Sector {
+    let sector!: Sector;
+    sector.sectorName = name;
+    sector.sectorPercent = percent;
+    this.sectors.push(sector);
+    return sector;
+  }
+
 }

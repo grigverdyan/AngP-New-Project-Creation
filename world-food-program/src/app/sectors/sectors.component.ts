@@ -14,20 +14,19 @@ Add-ը սխալա աշխատում
  */
 
 export class SectorsComponent implements OnInit {
-  sectors = this.sectorService.getSectors();
+  sectors: Sector[] = this.sectorService.getAllSectors();
 
-  sectorTable!: FormGroup;
-  // sectorTable = this.fb.group({
-  //   tableRows: this.fb.array(this.sectors)
-  // });
+  sectorTable = this.fb.group({
+    tableRows: this.fb.array(this.sectors)
+  });
 
   sector: Sector = {
     sectorName: "", sectorPercent: 0
   };
 
   sectorForm = new FormGroup({
-    sectorName: new FormControl(this.sector.sectorName),
-    sectorPercent:new FormControl(this.sector.sectorPercent)
+    sectorName: new FormControl(),
+    sectorPercent:new FormControl()
   });
 
   constructor(
@@ -35,18 +34,17 @@ export class SectorsComponent implements OnInit {
     private sectorService: SectorService
     ) {}
 
-  initSectorTable(): void {
-    this.sectorTable = this.fb.group({
-      tableRows: this.fb.array(this.sectors)
-    });
-  }
   ngOnInit(): void {
-    this.sectorTable = this.fb.group({
-        tableRows: this.fb.array(this.sectors)
-      });
+//    this.sectors = this.sectorService.getAllSectors();
   }
 
   addRow() {
+    // let secName = this.sectorForm.get('sectorName')?.value;
+    // let secPerc = this.sectorForm.get('sectorPercent')?.value;
+  //  this.sectorService.addSector(secName, secPerc);
+    this.sector.sectorName = this.sectorForm.get('sectorName')?.value;
+    this.sector.sectorPercent = this.sectorForm.get('sectorPercent')?.value;
+   // this.sectors = this.sectorService.getAllSectors();
     this.sectors.push(this.sector);
     this.tableRows.push(this.sectorForm);
     console.log(this.sectorTable);

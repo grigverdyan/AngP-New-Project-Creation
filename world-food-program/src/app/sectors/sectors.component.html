@@ -1,6 +1,6 @@
 <form [formGroup]="sectorTable">
-   <table class="table table-bordered">  <!--class="table table-bordered"-->
-    <thead class="text-nowrap"> <!--class="text-nowrap"-->
+   <table >  <!--class="table table-bordered"-->
+    <thead > <!--class="text-nowrap"-->
       <th>Sector Name</th>
       <th>%</th>
     </thead>
@@ -12,15 +12,15 @@
 
   <h4> Add </h4>
   <form [formGroup]="sectorForm">
-    <select class="form-select" formControlName="sectorName">
-      <option disabled>Select</option>
+    <select formControlName="sectorName">  <!--class="form-select"-->
+      <option disabled>-Select-</option>
       <option value="Agriculture">Agriculture</option>
       <option value="Administrative">Administrative</option>
       <option value="Tourism">Tourism</option>
       <option value="Health">Health</option>
     </select>
 
-    <input class="input-group-lg" formControlName="sectorPercent">
+    <input formControlName="sectorPercent">  <!--class="input-group-lg"-->
   </form>
 
 
