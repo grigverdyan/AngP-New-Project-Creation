@@ -4,25 +4,9 @@
       <th>Sector Name</th>
       <th>%</th>
     </thead>
-    <tbody>
-<!--      <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls">-->
-<!--        <td formControlName="sectorName">{{group.get('sectorName').value}}</td>-->
-<!--        <td formControlName="sectorPercent">{{group.get('sectorPercent').value}}</td>-->
-<!--        <td>-->
-<!--            <select formControlName="sector">-->
-<!--              <option value="Agriculture">Agriculture</option>-->
-<!--              <option value="Administrative">Administrative</option>-->
-<!--              <option value="Economy">Economy</option>-->
-<!--              <option value="Health">Health</option>-->
-<!--            </select>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--          <input formControlName="%" type="text">-->
-<!--        </td>-->
-      <ng-container  *ngFor="let sector of sectors">
-        <td formControlName="sectorName">{{sector.sectorName}}</td>
-        <td formControlName="sectorPercent">{{sector.sectorPercent}}</td>
-      </ng-container>
+    <tbody  *ngFor="let sector of sectors">
+      <td formControlName="sectorName">{{sector.sectorName}}</td>
+      <td formControlName="sectorPercent">{{sector.sectorPercent}}</td>
     </tbody>
   </table>
 
