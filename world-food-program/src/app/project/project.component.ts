@@ -3,9 +3,11 @@ import {
   OnInit
 } from '@angular/core';
 import {
+  FormArray,
   FormBuilder, FormGroup,
   Validators
 } from "@angular/forms";
+import {Project} from "../exports";
 
 @Component({
   selector: 'app-project',
@@ -67,7 +69,6 @@ export class ProjectComponent implements OnInit {
   get getControl(){
     return this.projectForm.controls;
   }
-
 
   changeStatus(e: any) {
     this.implStatus!.setValue(e.target.value, {

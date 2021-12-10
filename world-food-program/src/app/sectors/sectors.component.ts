@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import { SectorService } from "../sectors.service";
-import {Sector} from "../sector";
+import {Sector} from "../exports";
 
 @Component({
   selector: 'app-sectors',
@@ -18,9 +18,10 @@ uxxaki, sxal, u voch demic. add-@ ashxatuma, sectors[]-@ mecanuma, bayc table-@ 
 export class SectorsComponent implements OnInit {
   sectors = this.sectorService.getSectors();
 
-  sectorTable = this.fb.group({
-    tableRows: this.fb.array(this.sectors)
-  });
+  sectorTable!: FormGroup;
+  // sectorTable = this.fb.group({
+  //   tableRows: this.fb.array(this.sectors)
+  // });
 
   sector: Sector = {
     sectorName: "", sectorPercent: 0
@@ -42,15 +43,15 @@ export class SectorsComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    // this.sectorTable = this.fb.group({
-    //   tableRows: this.fb.array(this.sectorService.getSectors())
-    // });
+    this.sectorTable = this.fb.group({
+        tableRows: this.fb.array(this.sectors)
+      });
   }
 
   addRow() {
     this.sectors.push(this.sector);
     this.tableRows.push(this.sectorForm);
-    this.initSectorTable();
+    // this.initSectorTable();
     console.log(this.sectorTable);
   }
 
