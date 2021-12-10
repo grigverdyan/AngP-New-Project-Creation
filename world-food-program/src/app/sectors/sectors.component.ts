@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import { SectorService } from "../sectors.service";
-import {Sector} from "../exports";
+import { Sector} from "../exports";
 
 @Component({
   selector: 'app-sectors',
@@ -9,10 +9,8 @@ import {Sector} from "../exports";
   styleUrls: ['./sectors.component.css']
 })
 
-
 /*
-mi qani baner poxel, sectori service em avelacrel, hmi tpuma table-@,
-uxxaki, sxal, u voch demic. add-@ ashxatuma, sectors[]-@ mecanuma, bayc table-@ sxala
+Add-ը սխալա աշխատում
  */
 
 export class SectorsComponent implements OnInit {
@@ -51,7 +49,6 @@ export class SectorsComponent implements OnInit {
   addRow() {
     this.sectors.push(this.sector);
     this.tableRows.push(this.sectorForm);
-    // this.initSectorTable();
     console.log(this.sectorTable);
   }
 

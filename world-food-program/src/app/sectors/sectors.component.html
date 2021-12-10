@@ -4,9 +4,9 @@
       <th>Sector Name</th>
       <th>%</th>
     </thead>
-    <tbody  *ngFor="let sector of sectors">
-      <td formControlName="sectorName">{{sector.sectorName}}</td>
-      <td formControlName="sectorPercent">{{sector.sectorPercent}}</td>
+    <tbody *ngFor="let sector of sectors">
+      <td>{{sector.sectorName}}</td>
+      <td>{{sector.sectorPercent}}</td>
     </tbody>
   </table>
 
@@ -14,7 +14,6 @@
   <form [formGroup]="sectorForm">
     <select class="form-select" formControlName="sectorName">
       <option disabled>Select</option>
-<!--      <option class="dropdown-item" *ngFor="let goal of goals">{{goals}}</option>-->
       <option value="Agriculture">Agriculture</option>
       <option value="Administrative">Administrative</option>
       <option value="Tourism">Tourism</option>
