@@ -9,35 +9,53 @@ import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 export class SectorsComponent implements OnInit {
   sectorTable!: FormGroup;
   control!: FormArray;
-  touchedRows: any;
-  goals: string[] = [
+  //touchedRows: any;
+  goals = [
     'Agriculture', 'Administrative', 'Economy', 'Health'
   ];
+
+  sectorForm = this.fb.group({
+    sectorName: [''],
+    sectorPercent: ['']
+  });
+
+  // touchedRows:any[] = [];
+  // sectorTable = this.fb.group({
+  //   tableRows: this.fb.array([])
+  // });
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.touchedRows = [];
+    // this.touchedRows = [];
     this.sectorTable = this.fb.group({
       tableRows: this.fb.array([])
     });
-    this.newRow();
   }
 
-  initiateRow(): FormGroup {
-    return this.fb.group({
-      sectorName: [''],
-      percent: ['']
-    });
-  }
-
-  newRow() {
-    const control = this.sectorTable.get('tableRows') as FormArray;
-    control.push(this.initiateRow());
-  }
+  // initiateRow(): FormGroup {
+  //   return this.fb.group({
+  //     sectorName: [''],
+  //     percent: ['']
+  //   });
+  // }
+  //
+  // newRow() {
+  //   const control = this.sectorTable.get('tableRows') as FormArray;
+  //   control.push(this.initiateRow());
+  // }
 
   addRow() {
+    // const sectorForm = this.fb.group({
+    //   sectorName: [''],
+    //   sectorPercent: ['']
+    // });
+    this.tableRows.push(this.sectorForm);
+    console.log(this.sectorTable);
+  }
 
+  get tableRows() {
+    return this.sectorTable.controls["tableRows"] as FormArray;
   }
 
   get getFormControls() {
