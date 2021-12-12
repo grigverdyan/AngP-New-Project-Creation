@@ -1,1 +1,40 @@
-<p>locations works!</p>
+<form [formGroup]="locationTable">
+  <table >  <!--class="table table-bordered"-->
+    <thead > <!--class="text-nowrap"-->
+    <th>County</th>
+    <th>District</th>
+    <th>%</th>
+    </thead>
+    <tbody *ngFor="let location of locations">
+    <td>{{location.county}}</td>
+    <td>{{location.district}}</td>
+    <td>{{location.locationPercent}}</td>
+    </tbody>
+  </table>
+
+  <div *ngIf="addLocOpen" class="modal">
+    <h4>Add Project Location</h4>
+
+    <form [formGroup]="locationForm">
+      <select formControlName="county">  <!--class="form-select"-->
+        <option disabled>-Select-</option>
+        <option value="Agriculture">Agriculture</option>
+        <option value="Administrative">Administrative</option>
+        <option value="Tourism">Tourism</option>
+        <option value="Health">Health</option>
+      </select>
+
+      <select formControlName="district">  <!--class="form-select"-->
+        <option disabled>-Select-</option>
+        <option value="Agriculture">Agriculture</option>
+        <option value="Administrative">Administrative</option>
+        <option value="Tourism">Tourism</option>
+        <option value="Health">Health</option>
+      </select>
+
+      <input formControlName="sectorPercent">  <!--class="input-group-lg"-->
+    </form>
+  </div>
+
+  <button (click)="addLocation()">Add</button>
+</form>
