@@ -25,7 +25,7 @@ export class SectorsComponent implements OnInit {
     sectorPercent:new FormControl()
   });
 
-  isSecInvalidValid = false;
+  isSecInvalid = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,7 +40,7 @@ export class SectorsComponent implements OnInit {
     if(this.sectorService.isSectorValid(newSector)){
       this.addSector();
     } else {
-      this.isSecInvalidValid = !this.isSecInvalidValid;
+      this.isSecInvalid = !this.isSecInvalid;
       console.log('Sector is not valid!') ;
     }
   }

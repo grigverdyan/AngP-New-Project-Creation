@@ -20,6 +20,8 @@ export class LocationsComponent implements OnInit {
     locationPercent: new FormControl()
   });
 
+  isLocInvalid = false;
+
   counties = [
     "Berat", "Dibër", "Durrës", "Elbasan", "Fier", "Gjirokastër", "Korçë", "Kukës"
   ];
@@ -103,6 +105,16 @@ export class LocationsComponent implements OnInit {
       this.districts = this.kukes.slice();
     }
     return true;
+  }
+
+  isValid() {
+    let newLocation= this.locationForm.value;
+    if(this.locService.isLocationValid(newLocation)){
+      this.addLocation();
+    } else {
+      this.isLocInvalid = !this.isLocInvalid;
+      console.log('Sector is not valid!') ;
+    }
   }
 
   addLoc() {

@@ -5,10 +5,8 @@ import {Location, Sector} from './exports';
   providedIn: 'root'
 })
 export class LocationsService {
-  locations: Location[] = [
-    {county: 'Syunik', district: 'Kapan', locationPercent: 15},
-    {county: 'Lori', district: 'Vanadzor', locationPercent: 45}
-  ];
+  locations: Location[] = [];
+  distNames: string[] = [];
   percentSum = 0;
 
   getAllLocations() {
@@ -17,15 +15,15 @@ export class LocationsService {
 
   constructor() { }
 
-  // isSectorValid(newSector: Sector): boolean {
-  //   console.log(this.percentSum);
-  //   if((this.percentSum + Number(newSector.sectorPercent) <= 100) &&
-  //     (!this.secNames.find(name => name === newSector.sectorName))) {
-  //     this.secNames.push(newSector.sectorName);
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  isLocationValid(newLocation: Location): boolean {
+    console.log(this.percentSum);
+    if((this.percentSum + Number(newLocation.locationPercent) <= 100) &&
+      (!this.distNames.find(name => name === newLocation.district))) {
+      this.distNames.push(newLocation.district);
+      return true;
+    }
+    return false;
+  }
 
 
   addLocation(newLocation: Location) {
