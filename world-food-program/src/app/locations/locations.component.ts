@@ -18,7 +18,37 @@ export class LocationsComponent implements OnInit {
     county: new FormControl(),
     district: new FormControl(),
     locationPercent: new FormControl()
-  })
+  });
+
+  counties = [
+    "Berat", "Dibër", "Durrës", "Elbasan", "Fier", "Gjirokastër", "Korçë", "Kukës"
+  ];
+  berat = [
+    "Kuçovë", "Poliçan", "Skrapar", "Ura Vajgurore"
+  ];
+  diber = [
+    "Bulqizë", "Dibër", "Klos", "Mat"
+  ];
+  elbasan = [
+    "Belsh", "Cërrik", "Elbasan", "Gramsh", "Librazhd", "Peqin", "Prrenjas"
+  ];
+  durres = [
+    "Gjepalaj", "Durrës", "Ishëm", "Katund i Ri", "Maminas"
+  ];
+  fier = [
+    "Cakran", "Dërmenas", "Fier", "Frakull", "Kuman", "Kurjan"
+  ];
+  korce = [
+    "Drenovë", "Gorë", "Korçë", "Lekas", "Libonik", "Maliq"
+  ];
+  kukes = [
+    "Kukës", "Arrën", "Bicaj", "Bushtricë", "Grykë-Çaje", "Kalis"
+  ];
+  gjirokaster = [
+    "Antigonë", "Cepo", "Gjirokastër", "Lazarat", "Libohovë", "Lunxhëri"
+  ];
+  districts: string[] = [...this.berat, ...this.diber, ...this.durres, ...this.elbasan,
+    ...this.fier, ...this.gjirokaster, ...this.korce, ...this.kukes];
 
   constructor(
     private fb: FormBuilder,
@@ -45,6 +75,42 @@ export class LocationsComponent implements OnInit {
 
   add() {
     this.addLocOpen = !this.addLocOpen;
+  }
+
+  getDistricts(county: string): boolean {
+    if(county === "Berat") {
+      this.districts = this.berat.slice();
+    }
+    if(county === "Dibër") {
+      this.districts = this.diber.slice();
+    }
+    if(county === "Durrës") {
+      this.districts = this.durres.slice();
+    }
+    if(county === "Elbasan") {
+      this.districts = this.elbasan.slice();
+    }
+    if(county === "Fier") {
+      this.districts = this.fier.slice();
+    }
+    if(county === "Gjirokastër") {
+      this.districts = this.gjirokaster.slice();
+    }
+    if(county === "Korçë") {
+      this.districts = this.korce.slice();
+    }
+    if(county === "Kukës") {
+      this.districts = this.kukes.slice();
+    }
+    return true;
+  }
+
+  addLoc() {
+    let newLocation= this.locationForm.value;
+    this.locService.addLocation(newLocation);
+    this.tableRows.push(this.locationForm);
+    this.locations = this.locService.getAllLocations();
+    console.log(this.locationTable);
   }
 
 }

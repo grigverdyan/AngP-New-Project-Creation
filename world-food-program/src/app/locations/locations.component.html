@@ -16,25 +16,19 @@
     <h4>Add Project Location</h4>
 
     <form [formGroup]="locationForm">
-      <select formControlName="county">  <!--class="form-select"-->
+      <select formControlName="county" #countyVal>  <!--class="form-select"-->
         <option disabled>-Select-</option>
-        <option value="Agriculture">Agriculture</option>
-        <option value="Administrative">Administrative</option>
-        <option value="Tourism">Tourism</option>
-        <option value="Health">Health</option>
+        <option *ngFor="let county of counties">{{county}}</option>
       </select>
 
-      <select formControlName="district">  <!--class="form-select"-->
+      <select *ngIf="getDistricts(countyVal.value)"  formControlName="district">  <!--class="form-select"-->
         <option disabled>-Select-</option>
-        <option value="Agriculture">Agriculture</option>
-        <option value="Administrative">Administrative</option>
-        <option value="Tourism">Tourism</option>
-        <option value="Health">Health</option>
+        <option *ngFor="let district of districts">{{district}}</option>
       </select>
 
       <input formControlName="sectorPercent">  <!--class="input-group-lg"-->
 
-      <button (click)="addLocation()">Add</button>
+      <button (click)="addLoc()">Add</button>
     </form>
   </div>
 
