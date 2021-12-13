@@ -38,9 +38,13 @@ export class LocationsComponent implements OnInit {
   }
 
   addLocation() {
+    // this.addLocOpen = !this.addLocOpen;
+
+
+  }
+
+  add() {
     this.addLocOpen = !this.addLocOpen;
-
-
   }
 
 }

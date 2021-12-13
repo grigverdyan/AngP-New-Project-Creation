@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Sector} from "./exports";
+import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SectorService {
+  percentSum = 55;
   sectors: Sector[] = [
     {sectorName: "Agriculture", sectorPercent: 30},
     {sectorName: "Tourism", sectorPercent: 25}
@@ -16,12 +18,20 @@ export class SectorService {
     return this.sectors.slice();
   }
 
-  addSector(name: string, percent: number): Sector {
-    let sector!: Sector;
-    sector.sectorName = name;
-    sector.sectorPercent = percent;
-    this.sectors.push(sector);
-    return sector;
+  isSectorValid(newSector: Sector): boolean {
+    console.log(this.percentSum);
+    if(this.percentSum + Number(newSector.sectorPercent) <= 100) {
+      console.log('mta');
+      return true;
+    }
+    return false;
+  }
+
+
+  addSector(newSector: Sector) {
+     this.sectors.push(newSector);
+     this.percentSum += newSector.sectorPercent;
+
   }
 
 }

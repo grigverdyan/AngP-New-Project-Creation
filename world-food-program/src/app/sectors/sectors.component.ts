@@ -9,10 +9,6 @@ import { Sector} from "../exports";
   styleUrls: ['./sectors.component.css']
 })
 
-/*
-Add-ը սխալա աշխատում
- */
-
 export class SectorsComponent implements OnInit {
   sectors: Sector[] = this.sectorService.getAllSectors();
 
@@ -35,18 +31,22 @@ export class SectorsComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-//    this.sectors = this.sectorService.getAllSectors();
   }
 
-  addRow() {
-    // let secName = this.sectorForm.get('sectorName')?.value;
-    // let secPerc = this.sectorForm.get('sectorPercent')?.value;
-  //  this.sectorService.addSector(secName, secPerc);
-    this.sector.sectorName = this.sectorForm.get('sectorName')?.value;
-    this.sector.sectorPercent = this.sectorForm.get('sectorPercent')?.value;
-   // this.sectors = this.sectorService.getAllSectors();
-    this.sectors.push(this.sector);
+  isValid() {
+    let newSector= this.sectorForm.value;
+    if(this.sectorService.isSectorValid(newSector)){
+      this.addSector();
+    } else {
+      console.log('Sector is not valid!') ;
+    }
+  }
+
+  addSector() {
+    let newSector= this.sectorForm.value;
+    this.sectorService.addSector(newSector);
     this.tableRows.push(this.sectorForm);
+    this.sectors = this.sectorService.getAllSectors();
     console.log(this.sectorTable);
   }
 
