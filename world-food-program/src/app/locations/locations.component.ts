@@ -113,7 +113,7 @@ export class LocationsComponent implements OnInit {
       this.addLoc();
       console.log("eli mta");
     } else {
-      this.isLocInvalid = !this.isLocInvalid;
+      this.isLocInvalid = true;
       console.log('Location is not valid!') ;
     }
   }
@@ -123,6 +123,7 @@ export class LocationsComponent implements OnInit {
     this.locService.addLocation(newLocation);
     this.tableRows.push(this.locationForm);
     this.locations = this.locService.getAllLocations();
+    this.isLocInvalid = false;
     console.log(this.locationTable);
   }
 

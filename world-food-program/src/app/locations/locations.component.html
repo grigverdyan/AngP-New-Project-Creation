@@ -29,6 +29,11 @@
       <input formControlName="locationPercent">  <!--class="input-group-lg"-->
 
       <button (click)="isValid()">Add</button>
+
+      <div *ngIf="isLocInvalid">
+        Your form is not valid.
+        Please check what you entered!
+      </div>
     </form>
   </div>
 

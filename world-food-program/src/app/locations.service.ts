@@ -17,11 +17,13 @@ export class LocationsService {
 
   isLocationValid(newLocation: Location): boolean {
     console.log("percent sum ",this.percentSum);
-    if((this.percentSum + Number(newLocation.locationPercent) <= 100) &&
-      (!this.distNames.find(name => name === newLocation.district))) { //(!this.distNames.find(name => name === newLocation.district))
-      this.distNames.push(newLocation.district);
-      console.log("mta");
-      return true;
+    if(newLocation.locationPercent && newLocation.district && newLocation.county) {
+      if ((this.percentSum + Number(newLocation.locationPercent) <= 100) &&
+        (!this.distNames.find(name => name === newLocation.district))) { //(!this.distNames.find(name => name === newLocation.district))
+        this.distNames.push(newLocation.district);
+        console.log("mta");
+        return true;
+      }
     }
     return false;
   }

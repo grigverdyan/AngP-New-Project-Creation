@@ -40,7 +40,7 @@ export class SectorsComponent implements OnInit {
     if(this.sectorService.isSectorValid(newSector)){
       this.addSector();
     } else {
-      this.isSecInvalid = !this.isSecInvalid;
+      this.isSecInvalid = true;
       console.log('Sector is not valid!') ;
     }
   }
@@ -50,6 +50,7 @@ export class SectorsComponent implements OnInit {
     this.sectorService.addSector(newSector);
     this.tableRows.push(this.sectorForm);
     this.sectors = this.sectorService.getAllSectors();
+    this.isSecInvalid = false;
     console.log(this.sectorTable);
   }
 
