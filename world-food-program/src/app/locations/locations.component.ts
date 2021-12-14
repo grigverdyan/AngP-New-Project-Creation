@@ -110,10 +110,11 @@ export class LocationsComponent implements OnInit {
   isValid() {
     let newLocation= this.locationForm.value;
     if(this.locService.isLocationValid(newLocation)){
-      this.addLocation();
+      this.addLoc();
+      console.log("eli mta");
     } else {
       this.isLocInvalid = !this.isLocInvalid;
-      console.log('Sector is not valid!') ;
+      console.log('Location is not valid!') ;
     }
   }
 
