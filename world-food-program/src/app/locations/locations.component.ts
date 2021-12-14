@@ -9,8 +9,12 @@ import { Location } from '../exports';
   styleUrls: ['./locations.component.css']
 })
 export class LocationsComponent implements OnInit {
-  locations: Location[] = this.locService.getAllLocations();
+  locations: Location[] = [];
+  districts: string[] = [];
+  counties: string[] = [];
+  isLocInvalid = false;
   addLocOpen = false;
+
   locationTable = this.fb.group({
     tableRows: this.fb.array(this.locations)
   });
@@ -20,44 +24,14 @@ export class LocationsComponent implements OnInit {
     locationPercent: new FormControl()
   });
 
-  isLocInvalid = false;
-
-  counties = [
-    "Berat", "Dibër", "Durrës", "Elbasan", "Fier", "Gjirokastër", "Korçë", "Kukës"
-  ];
-  berat = [
-    "Kuçovë", "Poliçan", "Skrapar", "Ura Vajgurore"
-  ];
-  diber = [
-    "Bulqizë", "Dibër", "Klos", "Mat"
-  ];
-  elbasan = [
-    "Belsh", "Cërrik", "Elbasan", "Gramsh", "Librazhd", "Peqin", "Prrenjas"
-  ];
-  durres = [
-    "Gjepalaj", "Durrës", "Ishëm", "Katund i Ri", "Maminas"
-  ];
-  fier = [
-    "Cakran", "Dërmenas", "Fier", "Frakull", "Kuman", "Kurjan"
-  ];
-  korce = [
-    "Drenovë", "Gorë", "Korçë", "Lekas", "Libonik", "Maliq"
-  ];
-  kukes = [
-    "Kukës", "Arrën", "Bicaj", "Bushtricë", "Grykë-Çaje", "Kalis"
-  ];
-  gjirokaster = [
-    "Antigonë", "Cepo", "Gjirokastër", "Lazarat", "Libohovë", "Lunxhëri"
-  ];
-  districts: string[] = [...this.berat, ...this.diber, ...this.durres, ...this.elbasan,
-    ...this.fier, ...this.gjirokaster, ...this.korce, ...this.kukes];
-
   constructor(
     private fb: FormBuilder,
     private locService: LocationsService
     ) { }
 
   ngOnInit(): void {
+    this.locations = this.locService.getAllLocations();
+    this.counties = this.locService.getCounties();
   }
 
   get tableRows() {
@@ -69,41 +43,16 @@ export class LocationsComponent implements OnInit {
     return control;
   }
 
-  addLocation() {
-    // this.addLocOpen = !this.addLocOpen;
-
-
-  }
-
   add() {
     this.addLocOpen = !this.addLocOpen;
   }
 
-  getDistricts(county: string): boolean {
-    if(county === "Berat") {
-      this.districts = this.berat.slice();
-    }
-    if(county === "Dibër") {
-      this.districts = this.diber.slice();
-    }
-    if(county === "Durrës") {
-      this.districts = this.durres.slice();
-    }
-    if(county === "Elbasan") {
-      this.districts = this.elbasan.slice();
-    }
-    if(county === "Fier") {
-      this.districts = this.fier.slice();
-    }
-    if(county === "Gjirokastër") {
-      this.districts = this.gjirokaster.slice();
-    }
-    if(county === "Korçë") {
-      this.districts = this.korce.slice();
-    }
-    if(county === "Kukës") {
-      this.districts = this.kukes.slice();
-    }
+  close() {
+    this.addLocOpen = !this.addLocOpen;
+  }
+
+  getDist(county: string): boolean {
+    this.districts = this.locService.getDistricts(county);
     return true;
   }
 
@@ -111,7 +60,6 @@ export class LocationsComponent implements OnInit {
     let newLocation= this.locationForm.value;
     if(this.locService.isLocationValid(newLocation)){
       this.addLoc();
-      console.log("eli mta");
     } else {
       this.isLocInvalid = true;
       console.log('Location is not valid!') ;
@@ -124,6 +72,7 @@ export class LocationsComponent implements OnInit {
     this.tableRows.push(this.locationForm);
     this.locations = this.locService.getAllLocations();
     this.isLocInvalid = false;
+    this.addLocOpen = !this.addLocOpen;
     console.log(this.locationTable);
   }
 

@@ -10,22 +10,19 @@ import { Sector} from "../exports";
 })
 
 export class SectorsComponent implements OnInit {
-  sectors: Sector[] = this.sectorService.getAllSectors();
+  sectors: Sector[] = [];
+  isSecInvalid = false;
+  secNames: string[] = [];
 
   sectorTable = this.fb.group({
     tableRows: this.fb.array(this.sectors)
   });
-
-  sector: Sector = {
-    sectorName: "", sectorPercent: 0
-  };
 
   sectorForm = new FormGroup({
     sectorName: new FormControl(),
     sectorPercent:new FormControl()
   });
 
-  isSecInvalid = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +30,8 @@ export class SectorsComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
+    this.sectors = this.sectorService.getAllSectors();
+    this.secNames = this.sectorService.getSectorNames();
   }
 
   isValid() {

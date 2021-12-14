@@ -1,6 +1,7 @@
 <form [formGroup]="locationTable">
-  <table >  <!--class="table table-bordered"-->
-    <thead > <!--class="text-nowrap"-->
+
+  <table class="table table-bordered">
+    <thead class="text-nowrap">
     <th>County</th>
     <th>District</th>
     <th>%</th>
@@ -12,30 +13,45 @@
     </tbody>
   </table>
 
-  <div *ngIf="addLocOpen">
-    <h4>Add Project Location</h4>
+  <div class="">
+    <div class="modal-body" *ngIf="addLocOpen">
 
-    <form [formGroup]="locationForm">
-      <select formControlName="county" #countyVal>  <!--class="form-select"-->
-        <option disabled>-Select-</option>
-        <option *ngFor="let county of counties">{{county}}</option>
-      </select>
+      <h4>Add Project Location</h4>
+      <button (click)="close()" class="btn-close"></button>
 
-      <select *ngIf="getDistricts(countyVal.value)"  formControlName="district">  <!--class="form-select"-->
-        <option disabled>-Select-</option>
-        <option *ngFor="let district of districts">{{district}}</option>
-      </select>
+      <form [formGroup]="locationForm">
 
-      <input formControlName="locationPercent">  <!--class="input-group-lg"-->
+        <div>
+          County <p class="required">*</p>
+          <select class="form-select" formControlName="county" #countyVal>
+            <option disabled>-Select-</option>
+            <option *ngFor="let county of counties">{{county}}</option>
+          </select>
+        </div>
 
-      <button (click)="isValid()">Add</button>
+        <div>
+          District
+          <select class="form-select" *ngIf="getDist(countyVal.value)"  formControlName="district">
+            <option disabled>-Select-</option>
+            <option *ngFor="let district of districts">{{district}}</option>
+          </select>
+        </div>
 
-      <div *ngIf="isLocInvalid">
-        Your form is not valid.
-        Please check what you entered!
-      </div>
-    </form>
+        <div>
+          <label for="locPercent">%</label>
+          <input id="locPercent" formControlName="locationPercent">
+        </div>
+
+        <button (click)="isValid()" class="btn-success">Add</button>
+
+        <div *ngIf="isLocInvalid" class="alert-danger">
+          Your form is not valid.
+          Please check what you entered!
+        </div>
+      </form>
+
+    </div>
   </div>
 
-  <button (click)="add()">Add</button>
+  <button *ngIf="!addLocOpen" (click)="add()" class="btn-success">Add Location</button>
 </form>
