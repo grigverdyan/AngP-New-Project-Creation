@@ -2,7 +2,7 @@
 
   <table class="table table-bordered">
     <thead class="text-nowrap">
-      <th>Sector Name</th>
+      <th (click)="sortSecByName()">Sector Name <span>{{sortType % 3}}</span></th>
       <th>%</th>
     </thead>
     <tbody *ngFor="let sector of sectors">
@@ -12,7 +12,6 @@
   </table>
 
   <h4> Add </h4>
-  <button (click)="sortSecByName()">Sort</button>
   <form [formGroup]="sectorForm">
     <select class="form-select" formControlName="sectorName">
       <option disabled>-Select-</option>

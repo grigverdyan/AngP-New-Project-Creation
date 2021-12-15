@@ -80,13 +80,15 @@ export class LocationsComponent implements OnInit {
     console.log(this.locationTable);
   }
 
-  sortCntyByName() {
+  sortCountyByName() {
     this.countySortType += 1;
+    this.districtSortType = 0;
     this.locations = this.locService.sortCountiesByName(this.countySortType % 3);
   }
 
-  sortDistByName() {
+  sortDistrictByName() {
     this.districtSortType += 1;
+    this.countySortType = 0;
     this.locations = this.locService.sortDistrictsByName(this.districtSortType % 3);
   }
 }

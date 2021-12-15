@@ -2,8 +2,8 @@
 
   <table class="table table-bordered">
     <thead class="text-nowrap">
-    <th (click)="sortCntyByName()">County</th>
-    <th (click)="sortDistByName()">District</th>
+    <th (click)="sortCountyByName()">County <span>{{countySortType % 3}}</span></th>
+    <th (click)="sortDistrictByName()">District <span>{{districtSortType % 3}}</span></th>
     <th>%</th>
     </thead>
     <tbody *ngFor="let location of locations">
