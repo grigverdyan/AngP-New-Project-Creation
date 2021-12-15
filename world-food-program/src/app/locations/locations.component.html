@@ -2,8 +2,8 @@
 
   <table class="table table-bordered">
     <thead class="text-nowrap">
-    <th>County</th>
-    <th>District</th>
+    <th (click)="sortCntyByName()">County</th>
+    <th (click)="sortDistByName()">District</th>
     <th>%</th>
     </thead>
     <tbody *ngFor="let location of locations">
@@ -13,8 +13,9 @@
     </tbody>
   </table>
 
-  <div class="">
-    <div class="modal-body" *ngIf="addLocOpen">
+  <div *ngIf="addLocOpen">
+<!--    <div class=""></div>-->
+    <div class="modal-content" >
 
       <h4>Add Project Location</h4>
       <button (click)="close()" class="btn-close"></button>

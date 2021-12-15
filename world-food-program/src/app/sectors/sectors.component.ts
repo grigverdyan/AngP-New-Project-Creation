@@ -13,6 +13,7 @@ export class SectorsComponent implements OnInit {
   sectors: Sector[] = [];
   isSecInvalid = false;
   secNames: string[] = [];
+  sortType = 0;
 
   sectorTable = this.fb.group({
     tableRows: this.fb.array(this.sectors)
@@ -50,6 +51,7 @@ export class SectorsComponent implements OnInit {
     this.tableRows.push(this.sectorForm);
     this.sectors = this.sectorService.getAllSectors();
     this.isSecInvalid = false;
+    this.sectorForm.reset();
     console.log(this.sectorTable);
   }
 
@@ -62,4 +64,9 @@ export class SectorsComponent implements OnInit {
     return control;
   }
 
+  sortSecByName() {
+    this.sortType += 1;
+    this.sectors = this.sectorService.sortSectorsByName(this.sortType % 3);
+
+  }
 }

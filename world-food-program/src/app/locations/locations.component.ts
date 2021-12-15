@@ -14,6 +14,8 @@ export class LocationsComponent implements OnInit {
   counties: string[] = [];
   isLocInvalid = false;
   addLocOpen = false;
+  countySortType = 0;
+  districtSortType = 0;
 
   locationTable = this.fb.group({
     tableRows: this.fb.array(this.locations)
@@ -49,6 +51,7 @@ export class LocationsComponent implements OnInit {
 
   close() {
     this.addLocOpen = !this.addLocOpen;
+    this.locationForm.reset();
   }
 
   getDist(county: string): boolean {
@@ -73,7 +76,17 @@ export class LocationsComponent implements OnInit {
     this.locations = this.locService.getAllLocations();
     this.isLocInvalid = false;
     this.addLocOpen = !this.addLocOpen;
+    this.locationForm.reset();
     console.log(this.locationTable);
   }
 
+  sortCntyByName() {
+    this.countySortType += 1;
+    this.locations = this.locService.sortCountiesByName(this.countySortType % 3);
+  }
+
+  sortDistByName() {
+    this.districtSortType += 1;
+    this.locations = this.locService.sortDistrictsByName(this.districtSortType % 3);
+  }
 }

@@ -7,7 +7,7 @@ import {Sector} from "./exports";
 export class SectorService {
   sectors: Sector[] = [];
   alreadySec: string[] = [];
-  secNames = ["Administrative", "Agriculture", "Health", "Tourism"];
+  secNames = ["Agriculture","Administrative", "Health", "Tourism"];
   percentSum = 0;
 
   constructor() { }
@@ -34,6 +34,22 @@ export class SectorService {
   addSector(newSector: Sector) {
      this.sectors.push(newSector);
      this.percentSum += Number(newSector.sectorPercent);
+  }
+
+  sortSectorsByName(sortType: number): Sector[] {
+    let sectors: Sector[];
+    switch(sortType) {
+      case 1:
+        sectors = this.sectors.sort((s1, s2) => s1.sectorName > s2.sectorName ? 1 : -1);
+        break;
+      case 2:
+        sectors = this.sectors.sort((s1, s2) => s1.sectorName < s2.sectorName ? 1 : -1);
+        break;
+      default:
+        sectors = this.sectors.slice();
+        break;
+    }
+    return sectors;
   }
 
 }

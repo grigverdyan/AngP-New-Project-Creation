@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Location} from './exports';
+import {Location, Sector} from './exports';
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +80,38 @@ export class LocationsService {
 
   getCounties() {
     return this.counties.slice();
+  }
+
+  sortCountiesByName(sortType: number): Location[] {
+    let locations: Location[];
+    switch(sortType) {
+      case 1:
+        locations = this.locations.sort((l1, l2) => l1.county > l2.county ? 1 : -1);
+        break;
+      case 2:
+        locations = this.locations.sort((l1, l2) => l1.county < l2.county ? 1 : -1);
+        break;
+      default:
+        locations = this.locations.slice();
+        break;
+    }
+    return locations;
+  }
+
+  sortDistrictsByName(sortType: number): Location[] {
+    let locations: Location[];
+    switch(sortType) {
+      case 1:
+        locations = this.locations.sort((l1, l2) => l1.district > l2.district ? 1 : -1);
+        break;
+      case 2:
+        locations = this.locations.sort((l1, l2) => l1.district < l2.district ? 1 : -1);
+        break;
+      default:
+        locations = this.locations.slice();
+        break;
+    }
+    return locations;
   }
 
 }
