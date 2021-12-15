@@ -13,8 +13,8 @@
     </tbody>
   </table>
 
-  <div *ngIf="addLocOpen">
-<!--    <div class=""></div>-->
+  <div class="modal-container" *ngIf="addLocOpen">
+    <div class="backdrop"></div>
     <div class="modal-content" >
 
       <h4>Add Project Location</h4>
@@ -22,33 +22,27 @@
 
       <form [formGroup]="locationForm">
 
-        <div>
-          County <p class="required">*</p>
-          <select class="form-select" formControlName="county" #countyVal>
-            <option disabled>-Select-</option>
-            <option *ngFor="let county of counties">{{county}}</option>
-          </select>
-        </div>
+        <label>County <span class="required">*</span></label>
+        <select class="form-select" formControlName="county" #countyVal>
+          <option disabled>-Select-</option>
+          <option *ngFor="let county of counties">{{county}}</option>
+        </select>
+        <p class="text-danger" *ngIf="!county.value && isLocInvalid">County field is required.</p>
 
-        <div>
-          District
+        <label>District <span class="required">*</span></label>
           <select class="form-select" *ngIf="getDist(countyVal.value)"  formControlName="district">
             <option disabled>-Select-</option>
             <option *ngFor="let district of districts">{{district}}</option>
           </select>
-        </div>
+        <p class="text-danger" *ngIf="!district.value && isLocInvalid">District field is required.</p>
 
-        <div>
-          <label for="locPercent">%</label>
-          <input id="locPercent" formControlName="locationPercent">
-        </div>
+
+        <label>%</label>
+        <input formControlName="locationPercent">
+        <p class="text-danger" *ngIf="!locationPercent.value && isLocInvalid">You need to enter percentage.</p>
 
         <button (click)="isValid()" class="btn-success">Add</button>
 
-        <div *ngIf="isLocInvalid" class="alert-danger">
-          Your form is not valid.
-          Please check what you entered!
-        </div>
       </form>
 
     </div>

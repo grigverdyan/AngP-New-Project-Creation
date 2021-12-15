@@ -45,6 +45,18 @@ export class LocationsComponent implements OnInit {
     return control;
   }
 
+  get county() {
+    return this.locationForm.get("county");
+  }
+
+  get district() {
+    return this.locationForm.get("district");
+  }
+
+  get locationPercent() {
+    return this.locationForm.get("locationPercent");
+  }
+
   add() {
     this.addLocOpen = !this.addLocOpen;
   }
@@ -52,6 +64,7 @@ export class LocationsComponent implements OnInit {
   close() {
     this.addLocOpen = !this.addLocOpen;
     this.locationForm.reset();
+    this.isLocInvalid = false;
   }
 
   getDist(county: string): boolean {

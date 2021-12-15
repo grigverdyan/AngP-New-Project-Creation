@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import { SectorService } from "../sectors.service";
 import { Sector} from "../exports";
 
@@ -19,9 +19,9 @@ export class SectorsComponent implements OnInit {
     tableRows: this.fb.array(this.sectors)
   });
 
-  sectorForm = new FormGroup({
-    sectorName: new FormControl(),
-    sectorPercent:new FormControl()
+  sectorForm = this.fb.group({
+    sectorName: ['', Validators.required],
+    sectorPercent: ['', Validators.required],
   });
 
 
@@ -33,6 +33,14 @@ export class SectorsComponent implements OnInit {
   ngOnInit(): void {
     this.sectors = this.sectorService.getAllSectors();
     this.secNames = this.sectorService.getSectorNames();
+  }
+
+  get sectorName() {
+    return this.sectorForm.get("sectorName");
+  }
+
+  get sectorPercent() {
+    return this.sectorForm.get("sectorPercent");
   }
 
   isValid() {
@@ -66,7 +74,11 @@ export class SectorsComponent implements OnInit {
 
   sortSecByName() {
     this.sortType += 1;
-    this.sectors = this.sectorService.sortSectorsByName(this.sortType % 3);
-
+    if(this.sortType % 3 === 0) {
+      this.sectors = this.sectorService.getAllSectors();
+    } else {
+      this.sectors = this.sectorService.sortSectorsByName(this.sortType % 3);
+    }
+    console.log(this.sectors);
   }
 }

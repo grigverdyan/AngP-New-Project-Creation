@@ -7,7 +7,7 @@ import {Sector} from "./exports";
 export class SectorService {
   sectors: Sector[] = [];
   alreadySec: string[] = [];
-  secNames = ["Agriculture","Administrative", "Health", "Tourism"];
+  secNames = ["Administrative", "Agriculture", "Health", "Tourism"];
   percentSum = 0;
 
   constructor() { }

@@ -39,7 +39,7 @@
     <label for="planned-start-date">Planned Start Date*</label>
     <input id="planned-start-date" class="" type="date" formControlName="plannedStartDate" required>
     <div *ngIf="plannedStartDate?.touched && plannedStartDate?.invalid" class="text-danger">
-      <div *ngIf="plannedStartDate?.errors.required">Project Code is required</div>
+      <p *ngIf="plannedStartDate?.errors.required">Project Code is required</p>
     </div>
   </div>
 

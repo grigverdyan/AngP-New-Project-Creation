@@ -11,19 +11,24 @@
     </tbody>
   </table>
 
-  <h4> Add </h4>
+  <h5> Add Sector</h5>
   <form [formGroup]="sectorForm">
+
+    <label>Sector <span class="required">*</span></label>
     <select class="form-select" formControlName="sectorName">
       <option disabled>-Select-</option>
       <option *ngFor="let i of secNames">{{i}}</option>
     </select>
-
+    <p class="text-danger" *ngIf="!sectorName.value && isSecInvalid">Sector field is required.</p>
+    <p class="alert-danger" *ngIf="isSecInvalid && sectorName.value">{{sectorName.value}} sector already exists</p>
+    <label>%</label>
     <input formControlName="sectorPercent">
+    <p class="text-danger" *ngIf="!sectorPercent.value && isSecInvalid">You need to enter percentage of sector.</p>
   </form>
 
   <button class="btn-success" (click)="isValid()">Add</button>
-  <div class="alert-danger" *ngIf="isSecInvalid">
-    Added sector is invalid
-  </div>
+<!--  <div class="alert-danger" *ngIf="isSecInvalid">-->
+<!--    Added sector is invalid-->
+<!--  </div>-->
 
 </form>

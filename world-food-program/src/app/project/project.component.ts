@@ -66,9 +66,9 @@ export class ProjectComponent implements OnInit {
     return this.projectForm.get('duration');
   }
 
-  get getControl(){
-    return this.projectForm.controls;
-  }
+  // get getControl(){
+  //   return this.projectForm.controls;
+  // }
 
   changeStatus(e: any) {
     this.implStatus!.setValue(e.target.value, {
