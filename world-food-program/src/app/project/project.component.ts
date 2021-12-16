@@ -7,7 +7,8 @@ import {
   FormBuilder, FormGroup,
   Validators
 } from "@angular/forms";
-import {Project} from "../exports";
+import {STATUSES} from "../data/implementation.status";
+import {Dropdown} from "../models/dropdown";
 
 @Component({
   selector: 'app-project',
@@ -15,16 +16,13 @@ import {Project} from "../exports";
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  statuses: string[] = [
-    'Planned', 'Pipelined', 'Ongoing', 'Stalled',
-    'Extended', 'Terminated', 'Suspended', 'Completed'
-  ];
-
+  statuses: Dropdown[] = [];
   projectForm!: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.statuses = STATUSES;
     this.projectForm= this.fb.group({
       projectCode: ['', [Validators.required, Validators.minLength(6)]],
       projectTitle: ['', [Validators.required, Validators.minLength(8)]],

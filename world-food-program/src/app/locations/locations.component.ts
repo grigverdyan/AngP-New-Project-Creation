@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl} from "@angular/forms";
-import {LocationsService} from "../locations.service";
-import { Location } from '../exports';
+import {LocationsService} from "../shared/locations.service";
+import { Location } from '../models/exports';
 
 @Component({
   selector: 'app-locations',

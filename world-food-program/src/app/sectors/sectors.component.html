@@ -2,12 +2,12 @@
 
   <table class="table table-bordered">
     <thead class="text-nowrap">
-      <th (click)="sortSecByName()">Sector Name <span>{{sortType % 3}}</span></th>
+      <th >Sector Name <span>{{sortType % 3}}</span></th> <!--(click)="sortSecByName()"-->
       <th>%</th>
     </thead>
-    <tbody *ngFor="let sector of sectors">
-      <td>{{sector.sectorName}}</td>
-      <td>{{sector.sectorPercent}}</td>
+    <tbody *ngFor="let sector of projectSectors">
+      <td>{{sector.sector.name}}</td>
+      <td>{{sector.percent}}</td>
     </tbody>
   </table>
 
@@ -17,7 +17,7 @@
     <label>Sector <span class="required">*</span></label>
     <select class="form-select" formControlName="sectorName">
       <option disabled>-Select-</option>
-      <option *ngFor="let i of secNames">{{i}}</option>
+      <option *ngFor="let i of sectorTypes">{{i.value}}</option>
     </select>
     <p class="text-danger" *ngIf="!sectorName.value && isSecInvalid">Sector field is required.</p>
     <p class="alert-danger" *ngIf="isSecInvalid && sectorName.value">{{sectorName.value}} sector already exists</p>
@@ -26,9 +26,6 @@
     <p class="text-danger" *ngIf="!sectorPercent.value && isSecInvalid">You need to enter percentage of sector.</p>
   </form>
 
-  <button class="btn-success" (click)="isValid()">Add</button>
-<!--  <div class="alert-danger" *ngIf="isSecInvalid">-->
-<!--    Added sector is invalid-->
-<!--  </div>-->
+  <button class="btn-success" (click)="addSector()">Add</button>
 
 </form>
