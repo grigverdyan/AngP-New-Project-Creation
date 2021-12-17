@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl} from "@angular/forms";
 import {LocationsService} from "../shared/locations.service";
-import { Location } from '../models/exports';
+import { Location } from '../models/location';
+import {ProjectLocation} from "../models/project.location";
 
 @Component({
   selector: 'app-locations',
@@ -9,7 +10,8 @@ import { Location } from '../models/exports';
   styleUrls: ['./locations.component.css']
 })
 export class LocationsComponent implements OnInit {
-  locations: Location[] = [];
+  projectlocations: ProjectLocation[] = [];
+  location = {}  as Location ;
   districts: string[] = [];
   counties: string[] = [];
   isLocInvalid = false;
@@ -18,7 +20,7 @@ export class LocationsComponent implements OnInit {
   districtSortType = 0;
 
   locationTable = this.fb.group({
-    tableRows: this.fb.array(this.locations)
+    tableRows: this.fb.array(this.projectlocations)
   });
   locationForm = this.fb.group({
     county: new FormControl(),
@@ -32,7 +34,7 @@ export class LocationsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.locations = this.locService.getAllLocations();
+    this.projectlocations = this.locService.getProjectLocations();
     this.counties = this.locService.getCounties();
   }
 
@@ -74,7 +76,14 @@ export class LocationsComponent implements OnInit {
 
   isValid() {
     let newLocation= this.locationForm.value;
-    if(this.locService.isLocationValid(newLocation)){
+    let newProjectLocation!: ProjectLocation;
+    newProjectLocation.percent = newLocation.percent;
+    newProjectLocation.location.county = newLocation.county;
+    newProjectLocation.location.district = newLocation.district;
+    if(this.locService.isLocationValid(newProjectLocation)){
+      newProjectLocation.locationId = 1;
+      newProjectLocation.locationId = newLocation.id;
+      newProjectLocation.
       this.addLoc();
     } else {
       this.isLocInvalid = true;

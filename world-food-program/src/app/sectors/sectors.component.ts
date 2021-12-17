@@ -23,8 +23,8 @@ export class SectorsComponent implements OnInit {
   isSecInvalid = false;
   sectorTypes: Dropdown[] = [];
   sortType = 0;
-  newSector = {} as Sector;
-  newProjectSector!: ProjectSector;
+  // newSector = {} as Sector;
+  newProjectSector = {} as ProjectSector;
 
   sectorTable = this.fb.group({
     tableRows: this.fb.array(this.projectSectors)
@@ -32,7 +32,7 @@ export class SectorsComponent implements OnInit {
 
   sectorForm = this.fb.group({
     sectorName: ['', Validators.required],
-    sectorPercent: [, Validators.required],
+    sectorPercent: ['', Validators.required],
   });
 
 
@@ -55,32 +55,37 @@ export class SectorsComponent implements OnInit {
     return this.sectorForm.get("sectorPercent");
   }
 
-  // isValid() {
-  //   let newSector= this.sectorForm.value;
-  //   if(this.sectorService.isSectorValid(newSector)){
-  //     this.addSector();
-  //   } else {
-  //     this.isSecInvalid = true;
-  //     console.log('Sector is not valid!') ;
-  //   }
-  // }
+  isValid() {
+    let newSector= this.sectorForm.value;
+    if(this.sectorService.isProjectSectorValid(newSector)){
+      this.addSector();
+    } else {
+      this.isSecInvalid = true;
+      console.log('Sector is not valid!') ;
+    }
+  }
 
   addSector() {
     // this.newSector.name = this.sectorForm.get("sectorName")?.value.name;
+    let newSector = {} as Sector;
+    // let newProjectSector = {} as ProjectSector;
     let sector = this.sectorForm.value;
-    this.newSector.name = sector.value.name;
-    console.log(this.newSector.name);
-    // this.newSector.id = this.sectorForm.get("sectorName")?.value.id;
-    // this.newProjectSector.sectorId = this.newSector.id;
-    // this.newProjectSector.percent = this.sectorForm.get("sectorPercent")?.value;
-    // this.newProjectSector.sector = this.newSector;
-    // // let newSector= this.sectorForm.value;
-    // this.sectorService.addSector(this.newProjectSector);
-    // this.tableRows.push(this.sectorForm);
-    // this.projectSectors = this.sectorService.getProjectSectors();
-    // this.isSecInvalid = false;
-    // this.sectorForm.reset();
-    // console.log(this.sectorTable);
+    console.log(sector)
+    this.newProjectSector.percent = sector.sectorPercent;
+    this.newProjectSector.sectorId = 1;
+    sector = this.sectorTypes.find(s => s.value === sector.sectorName)
+    newSector.name = sector.value;
+    newSector.id = sector.id;
+    // console.log(this.newSector);
+
+    this.newProjectSector.sectorId = newSector.id;
+    this.newProjectSector.sector = newSector;
+    this.sectorService.addSector(this.newProjectSector);
+    this.tableRows.push(this.sectorForm);
+    this.projectSectors = this.sectorService.getProjectSectors();
+    this.isSecInvalid = false;
+    this.sectorForm.reset();
+    console.log(this.sectorTable);
   }
 
   get tableRows() {
