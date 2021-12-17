@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, Validators} from "@angular/forms";
 import {LocationsService} from "../shared/locations.service";
 import { Location } from '../models/location';
 import {ProjectLocation} from "../models/project.location";
+import {Dropdown} from "../models/dropdown";
 
 @Component({
   selector: 'app-locations',
@@ -12,8 +13,8 @@ import {ProjectLocation} from "../models/project.location";
 export class LocationsComponent implements OnInit {
   projectlocations: ProjectLocation[] = [];
   location = {}  as Location ;
-  districts: string[] = [];
-  counties: string[] = [];
+  districts: Dropdown[] = [];
+  counties: Dropdown[] = [];
   isLocInvalid = false;
   addLocOpen = false;
   countySortType = 0;
@@ -23,9 +24,9 @@ export class LocationsComponent implements OnInit {
     tableRows: this.fb.array(this.projectlocations)
   });
   locationForm = this.fb.group({
-    county: new FormControl(),
-    district: new FormControl(),
-    locationPercent: new FormControl()
+    county: ['', Validators.required],
+    district: ['', Validators.required],
+    locationPercent: ['', Validators.required]
   });
 
   constructor(
@@ -83,34 +84,34 @@ export class LocationsComponent implements OnInit {
     if(this.locService.isLocationValid(newProjectLocation)){
       newProjectLocation.locationId = 1;
       newProjectLocation.locationId = newLocation.id;
-      newProjectLocation.
-      this.addLoc();
+      newProjectLocation.location.id = newLocation.id;
+      this.addLoc(newProjectLocation);
     } else {
       this.isLocInvalid = true;
       console.log('Location is not valid!') ;
     }
   }
 
-  addLoc() {
-    let newLocation= this.locationForm.value;
-    this.locService.addLocation(newLocation);
+  addLoc(newProjectLocation: ProjectLocation) {
+    // let newLocation= this.locationForm.value;
+    this.locService.addLocation(newProjectLocation);
     this.tableRows.push(this.locationForm);
-    this.locations = this.locService.getAllLocations();
+    this.projectlocations = this.locService.getProjectLocations();
     this.isLocInvalid = false;
     this.addLocOpen = !this.addLocOpen;
     this.locationForm.reset();
     console.log(this.locationTable);
   }
 
-  sortCountyByName() {
-    this.countySortType += 1;
-    this.districtSortType = 0;
-    this.locations = this.locService.sortCountiesByName(this.countySortType % 3);
-  }
+  // sortCountyByName() {
+  //   this.countySortType += 1;
+  //   this.districtSortType = 0;
+  //   this.locations = this.locService.sortCountiesByName(this.countySortType % 3);
+  // }
 
-  sortDistrictByName() {
-    this.districtSortType += 1;
-    this.countySortType = 0;
-    this.locations = this.locService.sortDistrictsByName(this.districtSortType % 3);
-  }
+  // sortDistrictByName() {
+  //   this.districtSortType += 1;
+  //   this.countySortType = 0;
+  //   this.locations = this.locService.sortDistrictsByName(this.districtSortType % 3);
+  // }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {DISTRICTS} from "../data/location.data";
+import {COUNTIES, DISTRICTS} from "../data/location.data";
 import {Dropdown} from "../models/dropdown";
 import {ProjectLocation} from "../models/project.location";
 
@@ -10,6 +10,7 @@ export class LocationsService {
   locations: ProjectLocation[] = [];
   distNames: string[] = [];
   districts: Dropdown[] = DISTRICTS;
+  counties: Dropdown[] = COUNTIES;
   percentSum = 0;
 
 
@@ -37,74 +38,75 @@ export class LocationsService {
     this.percentSum += Number(newProjectLocation.percent);
   }
 
-  getDistricts(county: string): string[] {
-    switch(county) {
-      case "Berat":
-        this.districts = this.berat.slice();
-        break;
-      case "Dibër":
-        this.districts = this.berat.slice();
-        break;
-      case "Durrës":
-        this.districts = this.durres.slice();
-        break;
-      case "Elbasan":
-        this.districts = this.elbasan.slice();
-        break;
-      case "Fier":
-        this.districts = this.fier.slice();
-        break;
-      case "Gjirokastër":
-        this.districts = this.gjirokaster.slice();
-        break;
-      case "Korçë":
-        this.districts = this.korce.slice();
-        break;
-      case "Kukës":
-        this.districts = this.kukes.slice();
-        break;
-      default:
-        this.districts = [...this.berat, ...this.diber, ...this.durres, ...this.elbasan,
-          ...this.fier, ...this.gjirokaster, ...this.korce, ...this.kukes];
-        break;
-    }
+
+  getDistricts(county: string): Dropdown[] {
     return this.districts.slice();
+    // switch(county) {
+    //   case "Berat":
+    //     this.districts = this.berat.slice();
+    //     break;
+    //   case "Dibër":
+    //     this.districts = this.berat.slice();
+    //     break;
+    //   case "Durrës":
+    //     this.districts = this.durres.slice();
+    //     break;
+    //   case "Elbasan":
+    //     this.districts = this.elbasan.slice();
+    //     break;
+    //   case "Fier":
+    //     this.districts = this.fier.slice();
+    //     break;
+    //   case "Gjirokastër":
+    //     this.districts = this.gjirokaster.slice();
+    //     break;
+    //   case "Korçë":
+    //     this.districts = this.korce.slice();
+    //     break;
+    //   case "Kukës":
+    //     this.districts = this.kukes.slice();
+    //     break;
+    //   default:
+    //     this.districts = [...this.berat, ...this.diber, ...this.durres, ...this.elbasan,
+    //       ...this.fier, ...this.gjirokaster, ...this.korce, ...this.kukes];
+    //     break;
+    // }
   }
 
-  getCounties() {
+  getCounties(): Dropdown[] {
     return this.counties.slice();
   }
 
-  sortCountiesByName(sortType: number): Location[] {
-    let locations: Location[];
-    switch(sortType) {
-      case 1:
-        locations = this.locations.sort((l1, l2) => l1.county > l2.county ? 1 : -1);
-        break;
-      case 2:
-        locations = this.locations.sort((l1, l2) => l1.county < l2.county ? 1 : -1);
-        break;
-      default:
-        locations = this.locations.slice();
-        break;
-    }
-    return locations;
-  }
+  // sortCountiesByName(sortType: number): Location[] {
+  //   let locations: Location[];
+  //   switch(sortType) {
+  //     case 1:
+  //       locations = this.locations.sort((l1, l2) => l1.county > l2.county ? 1 : -1);
+  //       break;
+  //     case 2:
+  //       locations = this.locations.sort((l1, l2) => l1.county < l2.county ? 1 : -1);
+  //       break;
+  //     default:
+  //       locations = this.locations.slice();
+  //       break;
+  //   }
+  //   return locations;
+  // }
 
-  sortDistrictsByName(sortType: number): Location[] {
-    let locations: Location[];
-    switch(sortType) {
-      case 1:
-        locations = this.locations.sort((l1, l2) => l1.district > l2.district ? 1 : -1);
-        break;
-      case 2:
-        locations = this.locations.sort((l1, l2) => l1.district < l2.district ? 1 : -1);
-        break;
-      default:
-        locations = this.locations.slice();
-        break;
-    }
-    return locations;
-  }
+  // sortDistrictsByName(sortType: number): Location[] {
+  //   let locations: Location[];
+  //   switch(sortType) {
+  //     case 1:
+  //       locations = this.locations.sort((l1, l2) => l1.district > l2.district ? 1 : -1);
+  //       break;
+  //     case 2:
+  //       locations = this.locations.sort((l1, l2) => l1.district < l2.district ? 1 : -1);
+  //       break;
+  //     default:
+  //       locations = this.locations.slice();
+  //       break;
+  //   }
+  //   return locations;
+  // }
 
 }
