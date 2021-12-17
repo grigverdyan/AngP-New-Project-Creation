@@ -9,9 +9,8 @@ import { ProjectSector } from "../models/project.sector";
 })
 export class SectorService {
   projectSectors: ProjectSector[] = [];
-  alreadySec: string[] = [];
-  //secNames = [{name:"Administrative", id:1}, "Agriculture", "Health", "Tourism"];// Sector type
-  sectorType = SECTORS;
+  existingSectorIds: number[] = [];
+  sectors = SECTORS;
   percentSum = 0;
 
   constructor() { }
@@ -19,19 +18,17 @@ export class SectorService {
   getProjectSectors() {
     return this.projectSectors.slice();
   }
-
   getSectorTypes() {
-    return this.sectorType;
+    if(this.existingSectorIds.length !== 0) {
+      let sectors = this.sectors.filter(s => !this.existingSectorIds.includes(s.id));
+      return sectors;
+    }
+    return this.sectors.slice();
   }
 
-  isProjectSectorValid(newProjectSector: ProjectSector): boolean {
-    if(Number(newProjectSector.percent) > 0 && newProjectSector.sector.name) {
-      if ((this.percentSum + Number(newProjectSector.percent) <= 100) &&
-        (!this.alreadySec.find(name => name === newProjectSector.sector.name))) {
-        this.alreadySec.push(newProjectSector.sector.name);
-        console.log("mta");
-        return true;
-      }
+  isSectorValid(ProjectSector: ProjectSector): boolean {
+    if(Number(ProjectSector.percent) > 0 && ProjectSector.sector.name && (this.percentSum + Number(ProjectSector.percent) <= 100)) {
+      return true;
     }
     return false;
   }
@@ -39,6 +36,10 @@ export class SectorService {
   addSector(newProjectSector: ProjectSector) {
      this.projectSectors.push(newProjectSector);
      this.percentSum += Number(newProjectSector.percent);
+  }
+
+  addInvalidId(id: number) {
+    this.existingSectorIds.push(id);
   }
 
   // sortSectorsByName(sortType: number): Sector[] {

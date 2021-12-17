@@ -2,13 +2,11 @@
 
   <table class="table table-bordered">
     <thead class="text-nowrap">
-    <th >County <span>{{countySortType % 3}}</span></th>
-<!--    (click)="sortCountyByName()"-->
-    <th >District <span>{{districtSortType % 3}}</span></th>
-<!--    (click)="sortDistrictByName()"-->
+    <th (click)="sortCountyByName()">County <span>{{countySortType % 3}}</span></th>
+    <th (click)="sortDistrictByName()">District <span>{{districtSortType % 3}}</span></th>
     <th>%</th>
     </thead>
-    <tbody *ngFor="let location of projectlocations">
+    <tbody *ngFor="let location of projectLocations">
     <td>{{location.location.county}}</td>
     <td>{{location.location.district}}</td>
     <td>{{location.percent}}</td>
@@ -25,24 +23,25 @@
       <form [formGroup]="locationForm">
 
         <label>County <span class="required">*</span></label>
-        <select class="form-select" formControlName="county" #countyVal>
+        <select class="form-select" formControlName="county" #county>
           <option disabled>-Select-</option>
-          <option *ngFor="let county of counties">{{county}}</option>
+          <option *ngFor="let county of counties">{{county.value}}</option>
         </select>
         <p class="text-danger" *ngIf="!county.value && isLocInvalid">County field is required.</p>
 
-        <label>District <span class="required">*</span></label>
-          <select class="form-select" *ngIf="getDist(countyVal.value)"  formControlName="district">
-            <option disabled>-Select-</option>
-            <option *ngFor="let district of districts">{{district}}</option>
-          </select>
-        <p class="text-danger" *ngIf="!district.value && isLocInvalid">District field is required.</p>
+        <div *ngIf="getDist()">
+          <label>District <span class="required">*</span></label>
+            <select class="form-select"  formControlName="district">
+              <option disabled>-Select-</option>
+              <option *ngFor="let district of districts">{{district.value}}</option>
+            </select>
+          <p class="text-danger" *ngIf="!district.value && isLocInvalid">District field is required.</p>
 
 
         <label>%</label>
         <input formControlName="locationPercent">
         <p class="text-danger" *ngIf="!locationPercent.value && isLocInvalid">You need to enter percentage.</p>
-
+        </div>
         <button (click)="isValid()" class="btn-success">Add</button>
 
       </form>

@@ -12,25 +12,45 @@ export class LocationsService {
   districts: Dropdown[] = DISTRICTS;
   counties: Dropdown[] = COUNTIES;
   percentSum = 0;
-
+  invalidIds: number [] = [];
 
   getProjectLocations() {
     return this.locations.slice();
+  }
+  getCounties(): Dropdown[] {
+    return this.counties.slice();
+  }
+  getDistricts(countyId: number): Dropdown[] {
+    let districts: Dropdown[] = [];
+    for(let district of DISTRICTS) {
+      if(district.parentId === countyId) {
+        districts.push(district);
+      }
+    }
+    if(districts.length === 0){
+      districts = this.districts.slice();
+    }
+    if(this.invalidIds.length !== 0) {
+      districts = districts.filter(d => !this.invalidIds.includes(d.id));
+    }
+    return districts.slice();
   }
 
   constructor() { }
 
   isLocationValid(newProjectLocation: ProjectLocation): boolean {
     console.log("percent sum ",this.percentSum);
-    if(Number(newProjectLocation.percent) > 0 && newProjectLocation.location.district && newProjectLocation.location.county) {
-      if ((this.percentSum + Number(newProjectLocation.percent) <= 100) &&
-        (!this.distNames.find(name => name === newProjectLocation.location.district))) {
+    console.log(newProjectLocation.location.district);
+    if(Number(newProjectLocation.percent) > 0 && newProjectLocation.location.district && newProjectLocation.location.county &&
+      (this.percentSum + Number(newProjectLocation.percent) <= 100) && (!this.distNames.find(name => name === newProjectLocation.location.district))) {
         this.distNames.push(newProjectLocation.location.district);
-        console.log("mta");
         return true;
       }
-    }
     return false;
+  }
+
+  addInvalidId(id: number) {
+    this.invalidIds.push(id);
   }
 
   addLocation(newProjectLocation: ProjectLocation) {
@@ -38,75 +58,36 @@ export class LocationsService {
     this.percentSum += Number(newProjectLocation.percent);
   }
 
-
-  getDistricts(county: string): Dropdown[] {
-    return this.districts.slice();
-    // switch(county) {
-    //   case "Berat":
-    //     this.districts = this.berat.slice();
-    //     break;
-    //   case "Dibër":
-    //     this.districts = this.berat.slice();
-    //     break;
-    //   case "Durrës":
-    //     this.districts = this.durres.slice();
-    //     break;
-    //   case "Elbasan":
-    //     this.districts = this.elbasan.slice();
-    //     break;
-    //   case "Fier":
-    //     this.districts = this.fier.slice();
-    //     break;
-    //   case "Gjirokastër":
-    //     this.districts = this.gjirokaster.slice();
-    //     break;
-    //   case "Korçë":
-    //     this.districts = this.korce.slice();
-    //     break;
-    //   case "Kukës":
-    //     this.districts = this.kukes.slice();
-    //     break;
-    //   default:
-    //     this.districts = [...this.berat, ...this.diber, ...this.durres, ...this.elbasan,
-    //       ...this.fier, ...this.gjirokaster, ...this.korce, ...this.kukes];
-    //     break;
-    // }
+  sortByCountyName(sortType: number): ProjectLocation[] {
+    let locations: ProjectLocation[];
+    switch(sortType) {
+      case 1:
+        locations = this.getProjectLocations().sort((l1, l2) => l1.location.county > l2.location.county ? 1 : -1);
+        break;
+      case 2:
+        locations = this.getProjectLocations().sort((l1, l2) => l1.location.county < l2.location.county ? 1 : -1);
+        break;
+      default:
+        locations = this.locations.slice();
+        break;
+    }
+    return locations;
   }
 
-  getCounties(): Dropdown[] {
-    return this.counties.slice();
+  sortByDistrictName(sortType: number): ProjectLocation[] {
+    let locations: ProjectLocation[];
+    switch(sortType) {
+      case 1:
+        locations = this.getProjectLocations().sort((l1, l2) => l1.location.district > l2.location.district ? 1 : -1);
+        break;
+      case 2:
+        locations = this.getProjectLocations().sort((l1, l2) => l1.location.district < l2.location.district ? 1 : -1);
+        break;
+      default:
+        locations = this.locations.slice();
+        break;
+    }
+    return locations;
   }
-
-  // sortCountiesByName(sortType: number): Location[] {
-  //   let locations: Location[];
-  //   switch(sortType) {
-  //     case 1:
-  //       locations = this.locations.sort((l1, l2) => l1.county > l2.county ? 1 : -1);
-  //       break;
-  //     case 2:
-  //       locations = this.locations.sort((l1, l2) => l1.county < l2.county ? 1 : -1);
-  //       break;
-  //     default:
-  //       locations = this.locations.slice();
-  //       break;
-  //   }
-  //   return locations;
-  // }
-
-  // sortDistrictsByName(sortType: number): Location[] {
-  //   let locations: Location[];
-  //   switch(sortType) {
-  //     case 1:
-  //       locations = this.locations.sort((l1, l2) => l1.district > l2.district ? 1 : -1);
-  //       break;
-  //     case 2:
-  //       locations = this.locations.sort((l1, l2) => l1.district < l2.district ? 1 : -1);
-  //       break;
-  //     default:
-  //       locations = this.locations.slice();
-  //       break;
-  //   }
-  //   return locations;
-  // }
 
 }
