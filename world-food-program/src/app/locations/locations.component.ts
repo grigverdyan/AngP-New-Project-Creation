@@ -66,7 +66,6 @@ export class LocationsComponent implements OnInit {
       return false;
     }
   }
-
   isValid() {
     let newLocation = this.locationForm.value;
     let projectLocation = {} as ProjectLocation;
@@ -85,11 +84,10 @@ export class LocationsComponent implements OnInit {
       console.log('Location is not valid!');
     }
   }
-
   addLoc(projectLocation: ProjectLocation) {
     this.locService.addLocation(projectLocation);
     this.projectLocations.push(projectLocation);
-    //this.tableRows.push(this.locationForm);
+    this.tableRows.push(this.locationForm);
     //this.projectLocations = this.locService.getProjectLocations();
     console.log(this.projectLocations);
     this.isLocInvalid = false;
@@ -97,14 +95,11 @@ export class LocationsComponent implements OnInit {
     this.locationForm.reset();
     console.log(this.locationTable);
   }
-
   sortCountyByName() {
     this.countySortType += 1;
     this.districtSortType = 0;
     this.projectLocations = this.locService.sortByCountyName(this.countySortType % 3);
   }
-
-
   sortDistrictByName() {
     this.districtSortType += 1;
     this.countySortType = 0;

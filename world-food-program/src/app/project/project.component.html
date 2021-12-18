@@ -35,25 +35,27 @@
     </div>
   </div>
 
-  <div class="input-append date">
-    <label for="planned-start-date">Planned Start Date*</label>
-    <input id="planned-start-date" class="" type="date" formControlName="plannedStartDate" required>
-    <div *ngIf="plannedStartDate?.touched && plannedStartDate?.invalid" class="text-danger">
-      <p *ngIf="plannedStartDate?.errors.required">Project Code is required</p>
-    </div>
-  </div>
+<!--  <div class="input-append date">-->
+<!--    <label for="planned-start-date">Planned Start Date*</label>-->
+<!--    <input id="planned-start-date" class="" type="date" formControlName="plannedStartDate" required>-->
+<!--    <div *ngIf="plannedStartDate?.touched && plannedStartDate?.invalid" class="text-danger">-->
+<!--      <p *ngIf="plannedStartDate?.errors.required">Project Code is required</p>-->
+<!--    </div>-->
+<!--  </div>-->
 
-  <div class="form-group">
-    <label for="planned-end-date">Planned End Date</label>
-    <input id="planned-end-date" type="date" formControlName="plannedEndDate">
-  </div>
+<!--  <div class="form-group">-->
+<!--    <label for="planned-end-date">Planned End Date</label>-->
+<!--    <input id="planned-end-date" type="date" formControlName="plannedEndDate">-->
+<!--  </div>-->
 
-  <div class="form-group">
-    <label for="duration">Duration</label>
-    <input id="duration" class="form-switch" type="text" fornControlName="duration">
-  </div>
+<!--  <div class="form-group">-->
+<!--    <label for="duration">Duration</label>-->
+<!--    <input id="duration" class="form-switch" type="text" formControlName="duration">-->
+<!--  </div>-->
 
-  <button [disabled]="!projectForm.valid" class="btn btn-danger btn-block" type="submit">Submit</button>
-
+  <button (click)="submit()"  type="submit">Submit</button>
+<!--  [disabled]="!projectForm.valid" class="btn btn-danger btn-block"-->
 
 </form>
+
+<app-duration (childToParent)="getTimeData($event)"></app-duration>

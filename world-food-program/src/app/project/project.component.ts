@@ -1,6 +1,7 @@
 import {
+  AfterViewInit,
   Component,
-  OnInit
+  OnInit, ViewChild
 } from '@angular/core';
 import {
   FormArray,
@@ -9,6 +10,7 @@ import {
 } from "@angular/forms";
 import {STATUSES} from "../data/implementation.status";
 import {Dropdown} from "../models/dropdown";
+import {DurationComponent} from "../duration/duration.component";
 
 @Component({
   selector: 'app-project',
@@ -30,51 +32,51 @@ export class ProjectComponent implements OnInit {
       details: this.fb.group({
         implStatus: ['', Validators.required],
         plannedStartDate: ['', Validators.required],
-        plannedEndDate: [''],
+        endDate: [''],
         duration: ['']
       })
     })
   }
 
+  getTimeData(event: any) {
+    this.plannedStartDate?.setValue(event.startDate);
+    this.endDate?.setValue(event.endDate);
+    this.duration?.setValue(event.duration);
+  }
+
   get projectCode() {
     return this.projectForm.get('projectCode');
   }
-
   get projectTitle() {
     return this.projectForm.get('projectTitle');
   }
-
   get description() {
     return this.projectForm.get('description');
   }
-
   get implStatus() {
     return this.projectForm.get('implStatus');
   }
-
   get plannedStartDate() {
     return this.projectForm.get('plannedStartDate');
   }
-
-  get plannedEndDate() {
-    return this.projectForm.get('plannedEndDate');
+  get endDate() {
+    return this.projectForm.get('endDate');
   }
-
   get duration() {
     return this.projectForm.get('duration');
   }
 
-  // get getControl(){
-  //   return this.projectForm.controls;
+  // changeStatus(e: any) {
+  //   this.implStatus!.setValue(e.target.value, {
+  //     onlySelf: true
+  //   });
   // }
 
-  changeStatus(e: any) {
-    this.implStatus!.setValue(e.target.value, {
-      onlySelf: true
-    });
+  onSubmit(){
+    console.log(this.projectForm);
   }
 
-  onSubmit(){
+  submit() {
     console.log(this.projectForm);
   }
 

@@ -42,20 +42,20 @@ export class SectorService {
     this.existingSectorIds.push(id);
   }
 
-  // sortSectorsByName(sortType: number): Sector[] {
-  //   let sectors: Sector[];
-  //   switch(sortType) {
-  //     case 1:
-  //       sectors = this.sectors.sort((s1, s2) => s1.sectorName > s2.sectorName ? 1 : -1);
-  //       break;
-  //     case 2:
-  //       sectors = this.sectors.sort((s1, s2) => s1.sectorName < s2.sectorName ? 1 : -1);
-  //       break;
-  //     default:
-  //       sectors = this.sectors.slice();
-  //       break;
-  //   }
-  //   return sectors;
-  // }
+  sortSectorsByName(sortType: number): ProjectSector[] {
+    let sectors: ProjectSector[];
+    switch(sortType) {
+      case 1:
+        sectors = this.getProjectSectors().sort((s1, s2) => s1.sector.name > s2.sector.name ? 1 : -1);
+        break;
+      case 2:
+        sectors = this.getProjectSectors().sort((s1, s2) => s1.sector.name < s2.sector.name ? 1 : -1);
+        break;
+      default:
+        sectors = this.projectSectors.slice();
+        break;
+    }
+    return sectors;
+  }
 
 }
