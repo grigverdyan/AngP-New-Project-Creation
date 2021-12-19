@@ -1,8 +1,11 @@
 import {ProjectInfo} from "./project.info";
+import {ProjectLocation} from "./project.location";
+import {ProjectSector} from "./project.sector";
 
 export interface Project {
-  id: number,
   code: string,
   title: string,
-  projectInfo: ProjectInfo
+  projectInfo: ProjectInfo,
+  locations: ProjectLocation[],
+  sectors: ProjectSector[]
 }

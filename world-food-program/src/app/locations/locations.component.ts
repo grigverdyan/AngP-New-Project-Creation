@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, Validators} from "@angular/forms";
 import {LocationsService} from "../shared/locations.service";
 import { Location } from '../models/location';
 import {ProjectLocation} from "../models/project.location";
 import {Dropdown} from "../models/dropdown";
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-locations',
@@ -18,7 +19,6 @@ export class LocationsComponent implements OnInit {
   addLocOpen = false;
   countySortType = 0;
   districtSortType = 0;
-
   locationTable = this.fb.group({
     tableRows: this.fb.array(this.projectLocations)
   });
@@ -27,6 +27,8 @@ export class LocationsComponent implements OnInit {
     district: ['', Validators.required],
     locationPercent: ['', Validators.required]
   });
+  @Output() locationsEvent = new EventEmitter<any>();
+
   constructor(private fb: FormBuilder, private locService: LocationsService) { }
   ngOnInit(): void {
     this.projectLocations = this.locService.getProjectLocations();
@@ -104,5 +106,8 @@ export class LocationsComponent implements OnInit {
     this.districtSortType += 1;
     this.countySortType = 0;
     this.projectLocations = this.locService.sortByDistrictName(this.districtSortType % 3);
+  }
+  locToProject() {
+    this.locationsEvent.emit(this.projectLocations);
   }
 }

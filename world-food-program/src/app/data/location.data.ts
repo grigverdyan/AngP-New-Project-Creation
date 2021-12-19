@@ -1,6 +1,5 @@
 import {Dropdown} from "../models/dropdown";
 
-
 export const COUNTIES: Dropdown[] = [
   {id: 1, value: "Berat"},
   {id: 2, value: "Dibër"},
@@ -11,7 +10,6 @@ export const COUNTIES: Dropdown[] = [
   {id: 7, value: "Korçë"},
   {id: 8, value: "Kukës"},
 ];
-
 
 export const DISTRICTS: Dropdown[] = [
   {id: 1, value: "Kuçovë", parentId: 1},
@@ -64,7 +62,5 @@ export const DISTRICTS: Dropdown[] = [
   {id: 41, value: "Bicaj", parentId: 8},
   {id: 42, value: "Bushtricë", parentId: 8},
   {id: 43, value: "Grykë-Çaje", parentId: 8},
-  {id: 44, value: "Kalis", parentId: 8},
-
-]
-
+  {id: 44, value: "Kalis", parentId: 8}
+];

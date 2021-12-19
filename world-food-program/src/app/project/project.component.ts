@@ -1,16 +1,19 @@
 import {
-  AfterViewInit,
   Component,
-  OnInit, ViewChild
+  OnInit
 } from '@angular/core';
 import {
-  FormArray,
   FormBuilder, FormGroup,
   Validators
 } from "@angular/forms";
 import {STATUSES} from "../data/implementation.status";
 import {Dropdown} from "../models/dropdown";
-import {DurationComponent} from "../duration/duration.component";
+import {Project} from "../models/project";
+import {ProjectLocation} from "../models/project.location";
+import {Location} from "../models/location";
+import {ProjectSector} from "../models/project.sector";
+import {ProjectInfo} from "../models/project.info";
+import {ProjectService} from "../shared/project.service";
 
 @Component({
   selector: 'app-project',
@@ -19,29 +22,33 @@ import {DurationComponent} from "../duration/duration.component";
 })
 export class ProjectComponent implements OnInit {
   statuses: Dropdown[] = [];
-  projectForm!: FormGroup;
-
-  constructor(private fb: FormBuilder) { }
-
-  ngOnInit(): void {
-    this.statuses = STATUSES;
-    this.projectForm= this.fb.group({
+  projectForm = this.fb.group({
       projectCode: ['', [Validators.required, Validators.minLength(6)]],
       projectTitle: ['', [Validators.required, Validators.minLength(8)]],
       description: [''],
-      details: this.fb.group({
-        implStatus: ['', Validators.required],
-        plannedStartDate: ['', Validators.required],
-        endDate: [''],
-        duration: ['']
-      })
-    })
+      implStatus: ['', Validators.required]
+    });
+  durationForm: any;
+  locations: ProjectLocation[] = [];
+  sectors: ProjectSector[] = [];
+
+  constructor(private fb: FormBuilder, private projectService: ProjectService) { }
+
+  ngOnInit(): void {
+    this.statuses = STATUSES;
   }
 
-  getTimeData(event: any) {
-    this.plannedStartDate?.setValue(event.startDate);
-    this.endDate?.setValue(event.endDate);
-    this.duration?.setValue(event.duration);
+  getTimeData($event: any) {
+   this.durationForm = $event;
+   console.log(this.durationForm);
+  }
+  getLocationData($event: any) {
+    this.locations = $event;
+    console.log(this.locations);
+  }
+  getSectorsData($event: any) {
+    this.sectors = $event;
+    console.log(this.sectors);
   }
 
   get projectCode() {
@@ -66,18 +73,36 @@ export class ProjectComponent implements OnInit {
     return this.projectForm.get('duration');
   }
 
-  // changeStatus(e: any) {
-  //   this.implStatus!.setValue(e.target.value, {
-  //     onlySelf: true
-  //   });
-  // }
-
   onSubmit(){
     console.log(this.projectForm);
   }
 
   submit() {
     console.log(this.projectForm);
+  }
+
+  isProjectValid() {
+    let newProject = this.projectForm.value;
+    let project = {} as Project;
+    let info = {}  as ProjectInfo;
+    info.status = newProject.implStatus;
+    info.startDate = this.durationForm.startDate;
+    info.endDate = this.durationForm.endDate;
+    info.duration = this.durationForm.duration;
+    project.projectInfo = info;
+    project.sectors = this.sectors;
+    project.locations = this.locations;
+    project.code = newProject.code;
+    project.title = newProject.title;
+    if (this.projectService.isProjectValid(newProject)) {
+      this.addProject(project);
+    } else {
+      console.log('Project is not valid!');
+    }
+  }
+
+  addProject(project: Project) {
+    this.projectService.addProject(project);
   }
 
 }

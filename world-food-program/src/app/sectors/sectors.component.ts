@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, Validators} from "@angular/forms";
 import { SectorService } from "../shared/sectors.service";
 import { Dropdown } from "../models/dropdown";
 import { ProjectSector } from "../models/project.sector";
 import {Sector} from "../models/sector";
-import {ProjectLocation} from "../models/project.location";
-import {Location} from "../models/location";
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-sectors',
@@ -17,6 +16,7 @@ export class SectorsComponent implements OnInit {
   isSecInvalid = false;
   sectorTypes: Dropdown[] = [];
   sortType = 0;
+  @Output() sectorsEvent = new EventEmitter<any>();
 
   sectorTable = this.fb.group({
     tableRows: this.fb.array(this.projectSectors)
@@ -80,4 +80,7 @@ export class SectorsComponent implements OnInit {
     this.projectSectors = this.sectorService.sortSectorsByName(this.sortType % 3);
   }
 
+  sectorsToProject() {
+    this.sectorsEvent.emit(this.projectSectors);
+  }
 }

@@ -8,18 +8,17 @@ import {FormBuilder, Validators} from "@angular/forms";
   styleUrls: ['./duration.component.css']
 })
 export class DurationComponent implements OnInit {
-  @Output() sendToProject = new EventEmitter<any>();
-  disabled = false;
-  constructor(private fb: FormBuilder) { }
-
-  ngOnInit(): void {
-  }
-
   timeForm = this.fb.group({
     startDate: ['', Validators.required],
     endDate: [''],
     duration: ['']
   });
+  @Output() durationEvent = new EventEmitter<any>();
+  disabled = false;
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+  }
 
   get startDate() {
     return this.timeForm.get("startDate");
@@ -31,9 +30,6 @@ export class DurationComponent implements OnInit {
     return this.timeForm.get("duration");
   }
 
-  // var Time = date2.getTime() - date1.getTime();
-  // var Days = Time / (1000 * 3600 * 24); //Diference in Days
-
   getDuration() {
     if (this.startDate?.value && this.endDate?.value && !this.duration?.value) {
       let time = this.endDate?.value.getTime() - this.startDate?.value.getDate();
@@ -42,10 +38,8 @@ export class DurationComponent implements OnInit {
     }
   }
 
-  childToParent() {
-    this.sendToProject.emit(this.duration?.value);
-    this.sendToProject.emit(this.startDate?.value);
-    this.sendToProject.emit(this.endDate?.value);
+  durationToProject() {
+   this.durationEvent.emit(this.timeForm);
   }
 
 }

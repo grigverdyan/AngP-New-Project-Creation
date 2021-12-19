@@ -1,10 +1,12 @@
-<form [formGroup]="timeForm">
+<form [formGroup]="timeForm" (change)="durationToProject()">
   <label for="start-date">Planned start sate</label>
   <input id="start-date" type="date" formControlName="startDate">
 
+  <br>
   <label for="end-date">Planned end date</label>
   <input (keyup.insert)="getDuration()" id="end-date" type="date" formControlName="endDate">
 
+  <br>
   <label for="duration">Duration</label>
   <input id="duration" type="number" formControlName="duration" placeholder="this.duration" [disabled]="disabled">
 

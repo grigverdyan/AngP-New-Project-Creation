@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Sector } from "../models/exports";
-import { Dropdown } from "../models/dropdown";
 import  { SECTORS } from "../data/sector.data";
 import { ProjectSector } from "../models/project.sector";
 
@@ -20,8 +18,7 @@ export class SectorService {
   }
   getSectorTypes() {
     if(this.existingSectorIds.length !== 0) {
-      let sectors = this.sectors.filter(s => !this.existingSectorIds.includes(s.id));
-      return sectors;
+      return this.sectors.filter(s => !this.existingSectorIds.includes(s.id));
     }
     return this.sectors.slice();
   }

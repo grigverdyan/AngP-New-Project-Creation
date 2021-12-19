@@ -1,16 +1,16 @@
-<form [formGroup]="sectorTable">
-
-  <table class="table table-bordered">
-    <thead class="text-nowrap">
-      <th >Sector Name <span>{{sortType % 3}}</span></th> <!--(click)="sortSecByName()"-->
-      <th>%</th>
-    </thead>
-    <tbody *ngFor="let sector of projectSectors">
-      <td>{{sector.sector.name}}</td>
-      <td>{{sector.percent}}</td>
-    </tbody>
-  </table>
-
+<form [formGroup]="sectorTable" (change)="sectorsToProject()">
+<!--  <div *ngIf="sectorTable.value">-->
+    <table class="table table-bordered">
+      <thead class="text-nowrap">
+        <th (click)="sortSecByName()">Sector Name <span>{{sortType % 3}}</span></th> <!--(click)="sortSecByName()"-->
+        <th>%</th>
+      </thead>
+      <tbody *ngFor="let sector of projectSectors">
+        <td>{{sector.sector.name}}</td>
+        <td>{{sector.percent}}</td>
+      </tbody>
+    </table>
+<!--  </div>-->
   <h5> Add Sector</h5>
   <form [formGroup]="sectorForm">
 

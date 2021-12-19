@@ -6,5 +6,3 @@ export interface ProjectLocation {
   percent: number,
   location: Location
 }
-
-
