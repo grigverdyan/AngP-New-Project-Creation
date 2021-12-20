@@ -1,6 +1,5 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-
 
 @Component({
   selector: 'app-duration',
@@ -18,6 +17,7 @@ export class DurationComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.subscribeToDateChanges();
   }
 
   get startDate() {
@@ -32,8 +32,8 @@ export class DurationComponent implements OnInit {
 
   getDuration() {
     if (this.startDate?.value && this.endDate?.value && !this.duration?.value) {
-      let time = this.endDate?.value.getTime() - this.startDate?.value.getDate();
-      this.duration?.setValue(time / (1000 * 3600 * 24));
+      let time = new Date(this.endDate?.value).getTime() - new Date(this.startDate?.value).getTime();
+      this.duration?.patchValue(time / (1000 * 3600 * 24));
       this.disabled = !this.disabled;
     }
   }
@@ -42,4 +42,9 @@ export class DurationComponent implements OnInit {
    this.durationEvent.emit(this.timeForm);
   }
 
+  private subscribeToDateChanges() {
+    this.endDate?.valueChanges.subscribe(
+      value=> this.getDuration()
+    )
+  }
 }

@@ -16,7 +16,7 @@ export class SectorsComponent implements OnInit {
   isSecInvalid = false;
   sectorTypes: Dropdown[] = [];
   sortType = 0;
-  @Output() sectorsEvent = new EventEmitter<any>();
+  @Output() sectorsEvent = new EventEmitter<ProjectSector[]>();
 
   sectorTable = this.fb.group({
     tableRows: this.fb.array(this.projectSectors)
@@ -30,6 +30,13 @@ export class SectorsComponent implements OnInit {
   ngOnInit(): void {
     this.projectSectors = this.sectorService.getProjectSectors();
     this.sectorTypes = this.sectorService.getSectorTypes();
+  }
+  getSectors() {
+    this.sectorTypes = this.sectorService.getSectorTypes();
+    if(this.sectorTypes) {
+      return true;
+    }
+    return false;
   }
   get sectorName() {
     return this.sectorForm.get("sectorName");
@@ -49,8 +56,7 @@ export class SectorsComponent implements OnInit {
     let newSector= this.sectorForm.value;
     let projectSector = {} as ProjectSector;
     let sector = {} as Sector;
-    let sectorId = this.sectorTypes.find(s => s.value === newSector.sector).id;
-    console.log(sectorId)
+    let sectorId = this.sectorTypes.find(s => s.value === newSector.sectorName).id;
     projectSector.percent = newSector.sectorPercent;
     sector.name = newSector.sectorName;
     sector.id = sectorId;
@@ -58,7 +64,6 @@ export class SectorsComponent implements OnInit {
     if(this.sectorService.isSectorValid(projectSector)){
       projectSector.projectId = 1;
       this.addSector(projectSector);
-      this.sectorService.addInvalidId(sectorId);
     } else {
       this.isSecInvalid = true;
       console.log('Sector is not valid!') ;
@@ -71,9 +76,7 @@ export class SectorsComponent implements OnInit {
    this.tableRows.push(this.sectorForm);
    this.isSecInvalid = false;
    this.sectorForm.reset();
-   console.log(this.sectorForm);
   }
-
 
   sortSecByName() {
     this.sortType += 1;

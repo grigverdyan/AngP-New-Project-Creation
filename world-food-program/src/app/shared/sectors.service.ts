@@ -33,10 +33,7 @@ export class SectorService {
   addSector(newProjectSector: ProjectSector) {
      this.projectSectors.push(newProjectSector);
      this.percentSum += Number(newProjectSector.percent);
-  }
-
-  addInvalidId(id: number) {
-    this.existingSectorIds.push(id);
+     this.existingSectorIds.push(newProjectSector.sector.id);
   }
 
   sortSectorsByName(sortType: number): ProjectSector[] {

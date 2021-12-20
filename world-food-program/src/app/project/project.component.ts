@@ -40,15 +40,15 @@ export class ProjectComponent implements OnInit {
 
   getTimeData($event: any) {
    this.durationForm = $event;
-   console.log(this.durationForm);
+   //console.log(this.durationForm);
   }
   getLocationData($event: any) {
     this.locations = $event;
-    console.log(this.locations);
+    //console.log(this.locations);
   }
   getSectorsData($event: any) {
     this.sectors = $event;
-    console.log(this.sectors);
+    //console.log(this.sectors);
   }
 
   get projectCode() {
@@ -73,14 +73,6 @@ export class ProjectComponent implements OnInit {
     return this.projectForm.get('duration');
   }
 
-  onSubmit(){
-    console.log(this.projectForm);
-  }
-
-  submit() {
-    console.log(this.projectForm);
-  }
-
   isProjectValid() {
     let newProject = this.projectForm.value;
     let project = {} as Project;
@@ -103,6 +95,7 @@ export class ProjectComponent implements OnInit {
 
   addProject(project: Project) {
     this.projectService.addProject(project);
+    console.log(project);
   }
 
 }

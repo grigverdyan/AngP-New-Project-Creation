@@ -4,7 +4,7 @@
   <button class="btn-primary">SAVE & CLOSE</button>
 </div>
 
-<form [formGroup]="projectForm" (ngSubmit)="onSubmit()" novalidate>
+<form [formGroup]="projectForm">
 
   <div class="form-group">
     <label for="project-code">Project Code*</label>
@@ -33,36 +33,18 @@
     <label for="impl-status" class="form-label">Implementation Status*</label>
     <select id="impl-status" class="form-select"  formControlName="implStatus">
       <option [disabled]="true">Select</option>
-      <option class="dropdown-item" *ngFor="let status of statuses" >{{status.value}}</option>  <!--[ngValue]="status" (change)="changeStatus($event)"-->
+      <option class="dropdown-item" *ngFor="let status of statuses" >{{status.value}}</option>
     </select>
-
-    <div *ngIf="implStatus?.valid">
-      <sup>*</sup>Please enter Implementation status
+    <div class="text-danger" *ngIf="implStatus?.invalid && implStatus.touched">
+      Please enter Implementation status
     </div>
   </div>
 
   <app-duration (durationEvent)="getTimeData($event)"></app-duration>
 
 </form>
+<h3>Sectors</h3>
 <app-sectors (sectorsEvent)="getSectorsData($event)"></app-sectors>
+<h3>Locations</h3>
 <app-locations (locationsEvent)="getLocationData($event)" ></app-locations>
-<button (click)="submit()"  type="submit">Submit</button>
-<!--  [disabled]="!projectForm.valid" class="btn btn-danger btn-block"-->
 
-<!--  <div class="input-append date">-->
-<!--    <label for="planned-start-date">Planned Start Date*</label>-->
-<!--    <input id="planned-start-date" class="" type="date" formControlName="plannedStartDate" required>-->
-<!--    <div *ngIf="plannedStartDate?.touched && plannedStartDate?.invalid" class="text-danger">-->
-<!--      <p *ngIf="plannedStartDate?.errors.required">Project Code is required</p>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="form-group">-->
-<!--    <label for="planned-end-date">Planned End Date</label>-->
-<!--    <input id="planned-end-date" type="date" formControlName="plannedEndDate">-->
-<!--  </div>-->
-
-<!--  <div class="form-group">-->
-<!--    <label for="duration">Duration</label>-->
-<!--    <input id="duration" class="form-switch" type="text" formControlName="duration">-->
-<!--  </div>-->

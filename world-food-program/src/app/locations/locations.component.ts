@@ -1,5 +1,5 @@
 import {Component, OnInit, Output} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, Validators} from "@angular/forms";
 import {LocationsService} from "../shared/locations.service";
 import { Location } from '../models/location';
 import {ProjectLocation} from "../models/project.location";
@@ -27,7 +27,7 @@ export class LocationsComponent implements OnInit {
     district: ['', Validators.required],
     locationPercent: ['', Validators.required]
   });
-  @Output() locationsEvent = new EventEmitter<any>();
+  @Output() locationsEvent = new EventEmitter<ProjectLocation[]>();
 
   constructor(private fb: FormBuilder, private locService: LocationsService) { }
   ngOnInit(): void {
@@ -90,12 +90,9 @@ export class LocationsComponent implements OnInit {
     this.locService.addLocation(projectLocation);
     this.projectLocations.push(projectLocation);
     this.tableRows.push(this.locationForm);
-    //this.projectLocations = this.locService.getProjectLocations();
-    console.log(this.projectLocations);
     this.isLocInvalid = false;
     this.addLocOpen = !this.addLocOpen;
     this.locationForm.reset();
-    console.log(this.locationTable);
   }
   sortCountyByName() {
     this.countySortType += 1;
